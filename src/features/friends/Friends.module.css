@@ -1,0 +1,177 @@
+
+/*------------------- Friends ------------------------*/
+
+.page {
+  background-color: #ffffff;
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 0;
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  gap: 40px;
+  margin-top: 28px;
+  margin-left: 32px;
+}
+
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding-left: 32px;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 8px;
+}
+
+img {
+    height: 18px;
+    width: auto;
+}
+
+.searchContainer {
+  display: flex;
+  flex-direction: row;
+justify-content: space-between;
+gap: 8px;
+align-items: center;
+width: 100%;
+
+}
+
+.searchContainer img {
+height: 12px;
+width: auto;
+}
+
+/* ---------- FriendList ---------- */
+
+
+.listCards {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+
+/*------------------- FriendCard ------------------------*/
+
+.card {
+    display: flex;
+width: 100%;
+height: auto;
+padding: 16px;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+gap: 8px;
+border-radius: 20px;
+background-color: var(--light-gray);
+}
+
+
+
+.left {
+display: flex;
+flex-direction: row;
+justify-content: flex-start;
+gap: 8px;
+align-items: center;
+width: 100%;
+}
+
+.thirdLine div {
+display: flex;
+flex-direction: row;
+justify-content: flex-start;
+align-items: center;
+gap: 12px;
+}
+
+.initials {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: white;
+  border-radius: 50px;
+}
+
+.initials p {
+ font-size: 16px;
+ font-weight: 600;
+ color: black;
+}
+
+.from {
+  font-weight: 600;
+ color: black;
+}
+
+.btns {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.color0 {
+background: #FBE9CC;
+}
+
+.color1 {
+    background: #EAF1F3;
+}
+
+.color2 {
+    background: #ACC2FF;
+}
+
+.color3 {
+    background: #DCD5FB;
+}
+
+.color4 {
+    background: #C5E9FA;
+}
+
+/* --- mobile --- */
+@media (max-width: 480px) {
+  .page {
+    padding: 0 16px;
+  }
+
+  .container {
+    gap: 24px;
+    padding-top: 8px;
+    margin-top: 0;
+    padding-left: 0;
+    max-width: 400px;
+    margin-bottom: 60px;
+    margin-left: 0;
+  }
+
+  .header {
+    padding-left: 0;
+  }
+}

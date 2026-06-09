@@ -1,0 +1,119 @@
+/* ---------- Layout ---------- */
+.page {
+  background-color: #ffffff;
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 0 16px;
+}
+
+.container {
+  width: 100%;
+  max-width: 400px;
+  padding-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+justify-content: center;
+align-items: center;
+width: 100%;
+}
+
+.title {
+  display: flex;
+justify-content: center;
+align-items: center;
+position: relative;
+width: 100%;
+}
+
+.prevArrow {
+height: 14px;
+width: auto;
+position: absolute;
+left: 8px;
+}
+
+.searchContainer {
+  display: flex;
+justify-content: center;
+align-items: center;
+width: 100%;
+
+}
+
+/*------------------- UserList ------------------------*/
+
+.listCards {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+
+/*------------------- UserCard ------------------------*/
+
+.card {
+    display: flex;
+width: 100%;
+height: auto;
+padding: 16px;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+gap: 8px;
+border-radius: 20px;
+background-color: var(--light-gray);
+}
+
+
+
+.left {
+display: flex;
+flex-direction: row;
+justify-content: flex-start;
+gap: 8px;
+align-items: center;
+width: 100%;
+}
+
+.thirdLine div {
+display: flex;
+flex-direction: row;
+justify-content: flex-start;
+align-items: center;
+gap: 12px;
+}
+
+.initials {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: white;
+  border-radius: 50px;
+}
+
+.initials p {
+ font-size: 16px;
+ font-weight: 600;
+ color: black;
+}
+
+.from {
+  font-weight: 600;
+ color: black;
+}
