@@ -491,11 +491,11 @@ function useIsDesktop(breakpoint = 768) {
 
   return isDesktop;
 }
+```
 
 ```
    {isDesktop ? <button onClick={() => setShowModal(true)} className="btn-search"> <img src="/icons/plus.png" alt="Add event"/> Add new event</button> : <NavLink to="/add" className="btn-icon"><img src="/icons/plus.png" alt="Add event" /></NavLink>}
 ```
-
 
 ```
               <EventList onNmbEvents={setNmbEvents} search={search} />
@@ -503,8 +503,10 @@ function useIsDesktop(breakpoint = 768) {
            {showModal && <AddEvent onClose={()=> setShowModal(false)}/>}
         </div>
 ```
+
 ### 2) Home.module.css
 
+```
 desktop
 .page {
   background-color: #ffffff;
@@ -523,6 +525,7 @@ mobile
 
   position: static;
 }
+```
 
 ### 3) AddEvent.module.css
 

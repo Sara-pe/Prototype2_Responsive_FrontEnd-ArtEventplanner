@@ -4,7 +4,7 @@ import { EventCard } from './EventCard'
 
 import styles from '../Home.module.css'
 
-export const EventList = ({ onNmbEvents, search }) => {
+export const EventList = ({ onNmbEvents, search, refreshKey }) => {
 
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState(null)
@@ -32,7 +32,7 @@ export const EventList = ({ onNmbEvents, search }) => {
 
         fetchEvents()
 
-    }, [])
+    }, [refreshKey])
 
     useEffect(() => {
         if (data) {

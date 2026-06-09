@@ -5,15 +5,15 @@ import { NavLink } from "react-router-dom"
 import { AddEvent } from './AddEvent'
 
 function useIsDesktop(breakpoint = 880) {
-  const [isDesktop, setIsDesktop] = useState(() => window.innerWidth >= breakpoint);
+    const [isDesktop, setIsDesktop] = useState(() => window.innerWidth >= breakpoint);
 
-  useEffect(() => {
-    const handler = () => setIsDesktop(window.innerWidth >= breakpoint);
-    window.addEventListener("resize", handler);
-    return () => window.removeEventListener("resize", handler);
-  }, [breakpoint]);
+    useEffect(() => {
+        const handler = () => setIsDesktop(window.innerWidth >= breakpoint);
+        window.addEventListener("resize", handler);
+        return () => window.removeEventListener("resize", handler);
+    }, [breakpoint]);
 
-  return isDesktop;
+    return isDesktop;
 }
 
 export const Home = () => {
@@ -23,6 +23,7 @@ export const Home = () => {
     const [showSearch, setShowSearch] = useState(false)
 
     const [showModal, setShowModal] = useState(false)
+    const [refreshKey, setRefreshKey] = useState(0)
     const isDesktop = useIsDesktop();
 
     return (
@@ -62,10 +63,10 @@ export const Home = () => {
                 </div>
                 )}
 
-                <EventList onNmbEvents={setNmbEvents} search={search} />
+                <EventList onNmbEvents={setNmbEvents} search={search} refreshKey={refreshKey} />
             </div>
 
- {showModal && <AddEvent onClose={()=> setShowModal(false)}/>}
+            {showModal && <AddEvent onClose={() => setShowModal(false)} onSuccess={() => { setRefreshKey(k => k + 1); setShowModal(false); }} />}
 
         </div>
 

@@ -4,8 +4,7 @@ import { useNavigate } from 'react-router';
 
 import eventService from '../../../service/event.service'
 
-export const AddEventForm = () => {
-
+export const AddEventForm = ({ onSuccess }) => {
 
     const id = useId();
     const navigate = useNavigate();
@@ -13,7 +12,11 @@ export const AddEventForm = () => {
     const handleAddSubmit = async (formData) => {
         const data = Object.fromEntries(formData.entries());
         await eventService.create(data);
-        navigate('/');
+        if (onSuccess) {
+            onSuccess();
+        } else {
+            navigate('/');
+        }
     }
 
 

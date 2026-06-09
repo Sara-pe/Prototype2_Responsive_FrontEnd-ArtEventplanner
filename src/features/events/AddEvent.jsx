@@ -3,7 +3,7 @@ import { AddEventForm } from './components/AddEventForm'
 import { NavLink } from 'react-router-dom'
 import styles from './AddEvent.module.css'
 
-function useIsDesktop(breakpoint = 880) {
+function useIsDesktop(breakpoint = 600) {
   const [isDesktop, setIsDesktop] = useState(() => window.innerWidth >= breakpoint);
 
   useEffect(() => {
@@ -15,7 +15,7 @@ function useIsDesktop(breakpoint = 880) {
   return isDesktop;
 }
 
-export const AddEvent = ({ onClose }) => {
+export const AddEvent = ({ onClose, onSuccess }) => {
     const isDesktop = useIsDesktop();
 
     return (
@@ -33,7 +33,7 @@ export const AddEvent = ({ onClose }) => {
                         }
                     </div>
 
-                    <AddEventForm />
+                    <AddEventForm onSuccess={onSuccess} />
 
                 </div>
             </div>

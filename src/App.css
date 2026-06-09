@@ -129,7 +129,9 @@ main {
   position: fixed;
   top: 100px;
   left: 0;
+  bottom: 0;
   border-right: 1px solid #e6eef28f;
+  flex-wrap: nowrap;
 }
 
 .contNav {
