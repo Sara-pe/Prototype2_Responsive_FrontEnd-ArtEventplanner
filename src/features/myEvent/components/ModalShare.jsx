@@ -81,7 +81,9 @@ export const ModalShare = ({ event, attendees, onClose }) => {
                         </button>
                     </div>)}
                 </div>
-                <button className={styles.btnShare} onClick={handleSend}>Share</button>
+               <button className={`${styles.btnShare} ${styles.margins}`} onClick={handleSend}>
+    Share
+</button>
             </div>  </div>
     )
 }

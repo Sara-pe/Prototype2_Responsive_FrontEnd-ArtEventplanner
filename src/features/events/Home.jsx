@@ -1,5 +1,6 @@
 import styles from './Home.module.css'
 import { EventList } from './components/EventList'
+import { EventCard } from './components/EventCard'
 import { useState, useEffect } from 'react';
 import { NavLink } from "react-router-dom"
 import { AddEvent } from './AddEvent'
@@ -63,7 +64,7 @@ export const Home = () => {
                 </div>
                 )}
 
-                <EventList onNmbEvents={setNmbEvents} search={search} refreshKey={refreshKey} />
+                <EventList onNmbEvents={setNmbEvents} search={search} refreshKey={refreshKey} CardComponent={EventCard} className={styles.listCards} />
             </div>
 
             {showModal && <AddEvent onClose={() => setShowModal(false)} onSuccess={() => { setRefreshKey(k => k + 1); setShowModal(false); }} />}

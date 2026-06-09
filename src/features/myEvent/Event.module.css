@@ -1,22 +1,26 @@
 /* ---------- Layout ---------- */
+
+
 .page {
     background-color: #ffffff;
     min-height: 100vh;
     display: flex;
     align-items: flex-start;
     justify-content: center;
-    padding: 0 16px;
-    width: 100%;
+    padding: 0;
+    position: relative;
+    min-height: calc(100vh - 100px);
+
 }
 
 .container {
     width: 100%;
-    max-width: 400px;
-    padding-top: 8px;
     display: flex;
     flex-direction: column;
-    gap: 24px;
-
+    position: relative;
+    gap: 40px;
+    margin-top: 28px;
+    margin-bottom: 28px;
 }
 
 .header {
@@ -26,14 +30,16 @@
     justify-content: center;
     align-items: center;
     width: 100%;
+    margin-left: 32px;
 }
 
 .title {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     position: relative;
     width: 100%;
+    padding-left: 48px;
 }
 
 .prevArrow {
@@ -49,6 +55,16 @@
     display: flex;
     flex-direction: column;
     gap: 28px;
+    width: 100%;
+
+    border-radius: 30px;
+    background: #F6F7F7;
+    padding: 30px;
+    margin-left: 32px;
+
+    height: calc(100vh - 238px);
+    max-height: fit-content;
+    overflow-y: scroll;
 }
 
 .containerCardIntro {
@@ -142,6 +158,17 @@
     width: fit-content;
 }
 
+.tagImg {
+    color: black;
+    border-radius: 200px;
+    padding: 1px 8px;
+    width: fit-content;
+    position: absolute;
+    top: 20px;
+    left: 16px;
+    background-color: white
+}
+
 .nameAdapted {
     font-size: 20px;
     display: -webkit-box;
@@ -156,7 +183,7 @@
     gap: 8px;
     align-items: center;
     justify-content: flex-start;
-    width: 140px;
+    width: 120px;
     height: 64px;
     position: absolute;
     bottom: 8px;
@@ -176,6 +203,19 @@
     background-color: var(--light-gray);
     width: 20px;
     height: 20px;
+    font-size: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nmbInterested2 {
+    color: black;
+    border-radius: 50px;
+    border: 1px solid #FFF;
+    background: #e5e8eb;
+    width: 28px;
+    height: 28px;
     font-size: 8px;
     display: flex;
     align-items: center;
@@ -252,7 +292,6 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
-    margin-bottom: 32px;
 }
 
 .btnShare {
@@ -265,7 +304,12 @@
     background: #000;
     color: white;
     font-size: 16px;
-    margin: 0px 20px 20px 20px;
+    margin: 0px;
+    width: 100%;
+}
+
+.btnShare:hover {
+    opacity: 0.8;
 }
 
 .btnDelete {
@@ -275,17 +319,19 @@
     justify-content: center;
     align-items: center;
     border-radius: 20px;
-    background: white;
     color: black;
     font-size: 16px;
+}
+
+.btnDelete span:hover {
+    color: gray;
 }
 
 /* ---------- ModalShare ---------- */
 
 .modalContainer {
-    max-width: 400px;
-    width: 100vw;
-    max-width: 440px;
+    width: 100%;
+    max-width: 100%;
     height: 100%;
     position: fixed;
     top: 50%;
@@ -295,18 +341,22 @@
     flex-direction: column;
     justify-content: flex-end;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(255, 255, 255, 0.712);
 }
+
+
 
 .modal {
     display: flex;
     flex-direction: column;
     margin-bottom: 160px;
     gap: 20px;
-    width: 96%;
+    width: 400px;
     border-radius: 32px;
     background-color: rgb(255, 255, 255);
     max-height: 640px;
+    height: fit-content;
+     box-shadow: 0 1px 8px 0 rgb(0 0 0 / 0.08);
 }
 
 .headerModal {
@@ -314,7 +364,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-start;
-     padding: 20px 20px 0px 20px;
+    padding: 20px 20px 0px 20px;
 
 }
 
@@ -339,6 +389,14 @@
 }
 
 
+.margins {
+    width: calc(100% - 40px);
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+
+
 /* ---------- Friend cards ---------- */
 
 
@@ -350,7 +408,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
- 
+
 }
 
 
@@ -359,15 +417,15 @@
 
 }
 
-.card > div {
+.card>div {
     display: flex;
-    
+
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     gap: 8px;
-   
-  
+
+
 }
 
 /*input[type="checkbox"] {
@@ -435,3 +493,106 @@
     color: black;
 }
 
+/* ---------- Desktop layout ---------- */
+.containerDesktop {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 40px;
+}
+
+.listEvents {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 400px;
+    height: calc(100vh - 238px);
+    overflow-y: scroll;
+    max-height: 931px;
+}
+
+.sideListCards {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+}
+
+.deskText {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+}
+
+.deskSubtitle {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+
+}
+
+.imgDesktop {
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+}
+
+/* --- mobile --- */
+@media (max-width: 600px) {
+    .page {
+        position: relative;
+        padding: 0 16px;
+        position: static;
+    }
+
+    .container {
+        gap: 24px;
+        padding-top: 8px;
+        margin-top: 0;
+        padding-left: 0;
+        max-width: 400px;
+        margin-bottom: 60px;
+        margin-left: 0;
+    }
+
+    .title {
+        justify-content: center;
+        padding-left: 0;
+    }
+
+    .eventDetails {
+        border-radius: 0px;
+        background: none;
+        padding: 0px;
+        margin-left: 0px;
+        height: fit-content;
+    }
+
+    .header {
+        margin-left: 0px;
+    }
+
+    .btns {
+        margin-bottom: 32px;
+    }
+
+    .modal {
+
+    width: 96%;
+     box-shadow: none;
+
+}
+
+.modalContainer {
+    width: 100vw;
+    max-width: 440px;
+}
+
+}

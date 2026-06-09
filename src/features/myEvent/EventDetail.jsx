@@ -10,6 +10,34 @@ import { useNavigate } from 'react-router-dom';
 import { useAtom } from 'jotai'
 import { saveAtom } from '../../atoms/token.atom'
 
+import { EventList } from '../events/components/EventList'
+import { EventCardSmall } from '../events/components/EventCardSmall'
+
+function useIsDesktop(breakpoint = 600) {
+    const [isDesktop, setIsDesktop] = useState(() => window.innerWidth >= breakpoint);
+
+    useEffect(() => {
+        const handler = () => setIsDesktop(window.innerWidth >= breakpoint);
+        window.addEventListener("resize", handler);
+        return () => window.removeEventListener("resize", handler);
+    }, [breakpoint]);
+
+    return isDesktop;
+}
+
+function useIsBreakpoint(breakpoint = 800) {
+    const [isBreakpoint, setIsBreakpoint] = useState(() => window.innerWidth >= breakpoint);
+
+    useEffect(() => {
+        const handler = () => setIsBreakpoint(window.innerWidth >= breakpoint);
+        window.addEventListener("resize", handler);
+        return () => window.removeEventListener("resize", handler);
+    }, [breakpoint]);
+
+    return isBreakpoint;
+}
+
+
 
 
 export const EventDetail = () => {
@@ -24,8 +52,11 @@ export const EventDetail = () => {
     const [error, setError] = useState(false)
 
     const [showModal, setShowModal] = useState(false)
+    const [search] = useState('')
 
     const navigate = useNavigate()
+    const isDesktop = useIsDesktop()
+    const isBreakpoint = useIsBreakpoint()
 
     useEffect(() => {
 
@@ -47,7 +78,7 @@ export const EventDetail = () => {
 
         fetchEvent()
 
-    }, [])
+    }, [id])
 
 
     const handleDelete = async (eventId) => {
@@ -96,108 +127,134 @@ export const EventDetail = () => {
                 </div>
 
                 {/* Event Info */}
-                <div className={styles.eventDetails}>
+                <div className={styles.containerDesktop}>
+                    <div className={styles.eventDetails}>
 
-                    {/* SVG CardIntro */}
-                    <div className={styles.containerCardIntro}>
-                        <svg width="100%" height="216" viewBox="0 0 360 216" preserveAspectRatio="none">
-                            <path
-                                d="M32,0 Q0,0 0,32 L0,120 Q0,152 32,152 L112,152 Q144,152 144,184 Q144,216 176,216 L328,216 Q360,216 360,184 L360,32 Q360,0 328,0 Z"
-                                fill="#EAF1F3"
-                            />
-                            <foreignObject x="0" y="0" width="360" height="240">
-                                <div xmlns="http://www.w3.org/1999/xhtml">
+                        {isDesktop
+                            ?
+                            
+                            <div className={styles.deskText}>
+                                     <div>
+                                                    {(event.type === "Cinema") && <img className={styles.imgDesktop} src="/imgs/imgCinema.jpg" alt="Cinema" />}
+                                                    {(event.type === "Concert") && <img className={styles.imgDesktop} src="/imgs/imgConcert.jpg" alt="Microphone" />}
+                                                    {(event.type === "Talk") && <img className={styles.imgDesktop} src="/imgs/imgTalk.jpg" alt="Microphone" />}
+                                                    {(event.type === "Dance") && <img className={styles.imgDesktop}  src="/imgs/imgDance.jpg" alt="Dance" />}
+                                                    {(event.type === "Workshop") &&  <img className={styles.imgDesktop} src="/imgs/imgWorkshop.jpg" alt="Workshop" />}
+                                                    {(event.type === "Expo") && <img className={styles.imgDesktop} src="/imgs/imgExpo.jpg" alt="Expo" />}
+                                                    {(event.type === "Theatre") && <img className={styles.imgDesktop}  src="/imgs/imgTheatre.jpg" alt="Theatre" />}
+                                                </div>
+                                 
+                                 
+                                  <p className={styles.tagImg}>{event.type}</p>
+                                <h2 className={styles.nameAdapted}>{event.name}</h2>
+                                <div className={styles.deskSubtitle}>
+                                    <p>{new Date(event.date).toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' })}</p>
+                                  
+                                        <p className={styles.nmbInterested2}>+{attendees.length}</p>
 
+                                        {count === 0 && <p>No one yet</p>}
 
-                                    {/* CardIntro */}
-                                    <div className={styles.cardIntro}>
-                                        <div className={styles.intro}>
-                                            <div>
-                                                <p className={styles.tag}>{event.type}</p>
-                                                <h2 className={styles.nameAdapted}>{event.name}</h2>
-                                            </div>
-                                            <p>{new Date(event.date).toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' })}</p>
-                                        </div>
-                                        <div className={styles.contImg}>
+                                        {count > 0 && count <= 2 && (
+                                            <div><p>{attendees.map(user => user.name).join(', ')} will go</p></div>
+                                        )}
 
-
-
-                                            {(event.type === "Cinema") && <img className={styles.imgCinema} src="/imgs/cinema.png" alt="Cinema" />}
-                                            {(event.type === "Concert") && <img className={styles.imgMicro} src="/imgs/micro1.png" alt="Microphone" />}
-                                            {(event.type === "Talk") && <img className={styles.imgMicro} src="/imgs/micro1.png" alt="Microphone" />}
-                                            {(event.type === "Dance") && <img className={styles.imgDance} src="/imgs/ballet.png" alt="Dance" />}
-                                            {(event.type === "Workshop") && <img className={styles.imgWorkshop} src="/imgs/workshop.png" alt="Workshop" />}
-                                            {(event.type === "Expo") && <img className={styles.imgExpo} src="/imgs/expo.png" alt="Expo" />}
-                                            {(event.type === "Theatre") && <img className={styles.imgTheatre} src="/imgs/theatre.png" alt="Theatre" />}
-                                        </div>
-                                    </div>
-
-                                    {/* ---- */}
-
+                                        {count > 2 && (
+                                            <div><p>{attendees.slice(0, 2).map(user => user.name).join(', ')} and {count - 2} more will go</p></div>
+                                        )}
+                                   
                                 </div>
-                            </foreignObject>
-                        </svg>
-
-                        {/* ---- */}
-
-                        <div className={styles.interested}>
-                            <p className={styles.nmbInterested}>+{attendees.length}</p>
-
-
-                            {count === 0 && (
-                                <p>No one yet</p>
-                            )}
-
-                            {count > 0 && count <= 2 && (
-                                <div>
-                                    <p>
-                                        {attendees.map(user => user.name).join(', ')} will go</p>
-                                </div>
-                            )}
-
-                            {count > 2 && (
-                                <div>
-                                    <p>
-                                        {attendees.slice(0, 2).map(user => user.name).join(', ')} and {count - 2} more will go
-                                    </p>
-                                </div>
-                            )}
-                        </div>
-
-                    </div>
-
-                    <div className={styles.infoContainer}>
-                        <div className={styles.locationContainer}>
-                            <img src="/icons/building.png" alt="" />
-                            <div>
-                                <p className={styles.at}>{event.at}</p>
-                                <p>{event.city}</p>
                             </div>
+                            : <div className={styles.containerCardIntro}>
+                                <svg width="100%" height="216" viewBox="0 0 360 216" preserveAspectRatio="none">
+                                    <path
+                                        d="M32,0 Q0,0 0,32 L0,120 Q0,152 32,152 L112,152 Q144,152 144,184 Q144,216 176,216 L328,216 Q360,216 360,184 L360,32 Q360,0 328,0 Z"
+                                        fill="#EAF1F3"
+                                    />
+                                    <foreignObject x="0" y="0" width="360" height="240">
+                                        <div xmlns="http://www.w3.org/1999/xhtml">
+                                            <div className={styles.cardIntro}>
+                                                <div className={styles.intro}>
+                                                    <div>
+                                                        <p className={styles.tag}>{event.type}</p>
+                                                        <h2 className={styles.nameAdapted}>{event.name}</h2>
+                                                    </div>
+                                                    <p>{new Date(event.date).toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' })}</p>
+                                                </div>
+                                                <div className={styles.contImg}>
+                                                    {(event.type === "Cinema") && <img className={styles.imgCinema} src="/imgs/cinema.png" alt="Cinema" />}
+                                                    {(event.type === "Concert") && <img className={styles.imgMicro} src="/imgs/micro1.png" alt="Microphone" />}
+                                                    {(event.type === "Talk") && <img className={styles.imgMicro} src="/imgs/micro1.png" alt="Microphone" />}
+                                                    {(event.type === "Dance") && <img className={styles.imgDance} src="/imgs/ballet.png" alt="Dance" />}
+                                                    {(event.type === "Workshop") && <img className={styles.imgWorkshop} src="/imgs/workshop.png" alt="Workshop" />}
+                                                    {(event.type === "Expo") && <img className={styles.imgExpo} src="/imgs/expo.png" alt="Expo" />}
+                                                    {(event.type === "Theatre") && <img className={styles.imgTheatre} src="/imgs/theatre.png" alt="Theatre" />}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </foreignObject>
+                                </svg>
+
+                                <div className={styles.interested}>
+                                    <p className={styles.nmbInterested}>+{attendees.length}</p>
+
+                                    {count === 0 && <p>No one yet</p>}
+
+                                    {count > 0 && count <= 2 && (
+                                        <div><p>{attendees.map(user => user.name).join(', ')} will go</p></div>
+                                    )}
+
+                                    {count > 2 && (
+                                        <div><p>{attendees.slice(0, 2).map(user => user.name).join(', ')} and {count - 2} more will go</p></div>
+                                    )}
+                                </div>
+                            </div>
+                        }
+
+                        <div className={styles.infoContainer}>
+                            <div className={styles.locationContainer}>
+                                <img src="/icons/building.png" alt="" />
+                                <div>
+                                    <p className={styles.at}>{event.at}</p>
+                                    <p>{event.city}</p>
+                                </div>
+                            </div>
+                            <p className={styles.hour}>{event.hour}hrs</p>
                         </div>
-                        <p className={styles.hour}>{event.hour}hrs</p>
-                    </div>
 
-                    <div className={styles.location}>
-                        <div className={styles.contAddress}>
-                            <p>📍 {event.address}</p>
+                        <div className={styles.location}>
+                            <div className={styles.contAddress}>
+                                <p>📍 {event.address}</p>
+                            </div>
+
+                            <iframe
+                                width="100%"
+                                height="216"
+                                className={styles.maps}
+                                src={`https://www.google.com/maps?q=${encodeURIComponent(event.address)}&output=embed`}
+                            />
+
+                        </div>
+                        {showModal &&
+                            <ModalShare key={event._id} event={event} attendees={attendees} onClose={() => setShowModal(false)} />}
+
+                        <div className={styles.btns}>
+                            <button className={styles.btnShare} onClick={() => { setShowModal(true) }}>Share Event</button>
+                            <button className={styles.btnDelete} onClick={() => handleDelete(event._id)}> <span>Delete</span></button>
                         </div>
 
-                        <iframe
-                            width="100%"
-                            height="216"
-                            className={styles.maps}
-                            src={`https://www.google.com/maps?q=${encodeURIComponent(event.address)}&output=embed`}
-                        />
-
-                    </div>
-                    {showModal &&
-                        <ModalShare key={event._id} event={event} attendees={attendees} onClose={() => setShowModal(false)} />}
-
-                    <div className={styles.btns}>
-                        <button className={styles.btnShare} onClick={() => { setShowModal(true) }}>Share Event</button>
-                        <button className={styles.btnDelete} onClick={() => handleDelete(event._id)}>Delete</button>
                     </div>
 
+                    {isBreakpoint && (
+                        <div className={styles.listEvents}>
+                            <h3>Other events</h3>
+                            <EventList
+                                search={search}
+                                onNmbEvents={() => { }}
+                                CardComponent={EventCardSmall}
+                                className={styles.sideListCards}
+                            />
+                        </div>
+                    )}
                 </div>
 
             </div>

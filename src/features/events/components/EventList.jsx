@@ -1,10 +1,7 @@
 import eventService from '../../../service/event.service'
 import { useState, useEffect } from 'react'
-import { EventCard } from './EventCard'
 
-import styles from '../Home.module.css'
-
-export const EventList = ({ onNmbEvents, search, refreshKey }) => {
+export const EventList = ({ onNmbEvents, search, refreshKey, CardComponent, className }) => {
 
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState(null)
@@ -59,12 +56,10 @@ export const EventList = ({ onNmbEvents, search, refreshKey }) => {
     //a.date is a string  "2026-04-23T00:00:00.000Z" (deduction not possible) -> new Date(...) makes it a Date object ("2026-04-24")
 
     return (
-        <div className={styles.listCards}>
-
-            {data && allEvents.map((event, index) => (
-                <EventCard key={event._id} event={event} index={index} currentUserId={data.userId} />
-            ))
-            }
+        <div className={className}>
+            {allEvents.map((event, index) => (
+                <CardComponent key={event._id} event={event} index={index} currentUserId={data.userId} />
+            ))}
         </div>
     )
 }
