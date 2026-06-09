@@ -2,32 +2,31 @@
 /*------------------- Friends ------------------------*/
 
 .page {
-  background-color: #ffffff;
-  min-height: 100vh;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding: 0;
+    background-color: #ffffff;
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 0;
+    position: relative;
 }
 
 .container {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  gap: 40px;
-  margin-top: 28px;
-  margin-left: 32px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    gap: 40px;
+    margin-top: 28px;
+    padding-left: 32px;
 }
 
-
 .header {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  padding-left: 32px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
 }
 
 .buttons {
@@ -60,7 +59,17 @@ width: auto;
 
 /* ---------- FriendList ---------- */
 
+.listCards {
+     display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 0px 120px; 
+  }
 
+@media (max-width: 600px) {
 .listCards {
     display: flex;
     flex-direction: column;
@@ -68,7 +77,8 @@ width: auto;
     align-items: center;
     justify-content: center;
     width: 100%;
-}
+    padding: 0px
+}}
 
 
 /*------------------- FriendCard ------------------------*/
@@ -156,9 +166,10 @@ background: #FBE9CC;
 }
 
 /* --- mobile --- */
-@media (max-width: 480px) {
+@media (max-width: 600px) {
   .page {
     padding: 0 16px;
+    position: static;
   }
 
   .container {
@@ -169,6 +180,7 @@ background: #FBE9CC;
     max-width: 400px;
     margin-bottom: 60px;
     margin-left: 0;
+     padding-left: 0;
   }
 
   .header {

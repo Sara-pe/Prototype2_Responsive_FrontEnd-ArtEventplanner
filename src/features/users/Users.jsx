@@ -1,11 +1,24 @@
 import styles from './User.module.css'
 import {UsersList} from './components/UsersList'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
+
+function useIsDesktop(breakpoint = 600) {
+    const [isDesktop, setIsDesktop] = useState(() => window.innerWidth >= breakpoint);
+
+    useEffect(() => {
+        const handler = () => setIsDesktop(window.innerWidth >= breakpoint);
+        window.addEventListener("resize", handler);
+        return () => window.removeEventListener("resize", handler);
+    }, [breakpoint]);
+
+    return isDesktop;
+}
 
 export const Users = () => {
 
     const [search, setSearch] = useState('')
+    const isDesktop = useIsDesktop();
 
     return (
         <div className={styles.page}>
@@ -15,7 +28,7 @@ export const Users = () => {
                         <h1>Find friends</h1>
 
                         
-                       <NavLink to='/friends'> <img className={styles.prevArrow} src="/icons/prev.png" alt="" /></NavLink>
+                       {!isDesktop && <NavLink to='/friends'> <img className={styles.prevArrow} src="/icons/prev.png" alt="" /></NavLink>}
                     </div>
 
                     <div className={styles.searchContainer}>

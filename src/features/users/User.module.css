@@ -5,33 +5,73 @@
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  padding: 0 16px;
+  padding: 0;
+  position: relative;
 }
 
 .container {
   width: 100%;
-  max-width: 400px;
-  padding-top: 8px;
   display: flex;
   flex-direction: column;
-  gap: 24px;
-
+  position: relative;
+  gap: 40px;
+  margin-top: 28px;
+  padding-left: 32px;
 }
 
 .header {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
-justify-content: center;
-align-items: center;
-width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
-.title {
+/* --- mobile --- */
+@media (max-width: 600px) {
+  .page {
+    padding: 0 16px;
+    position: static;
+  }
+
+  .container {
+    gap: 24px;
+    padding-top: 8px;
+    margin-top: 0;
+    padding-left: 0;
+    max-width: 400px;
+    margin-bottom: 60px;
+    margin-left: 0;
+    padding-left: 0;
+  }
+
+  .header {
+
+     flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 12px;
+    width: 100%;
+  }
+
+  .title {
   display: flex;
 justify-content: center;
 align-items: center;
 position: relative;
+width: 100%;
+}
+
+.searchContainer {
+width: 100%;
+
+}
+}
+
+.title {
+  display: flex;
+justify-content: flex-start;
+align-items: center;
 width: 100%;
 }
 
@@ -46,16 +86,16 @@ left: 8px;
   display: flex;
 justify-content: center;
 align-items: center;
-width: 100%;
+width: 320px;
 
 }
 
 /*------------------- UserList ------------------------*/
 
 .listCards {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+ display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
     align-items: center;
     justify-content: center;
     width: 100%;
@@ -69,21 +109,48 @@ width: 100%;
 width: 100%;
 height: auto;
 padding: 16px;
-flex-direction: row;
-justify-content: space-between;
+flex-direction: column;
+justify-content: flex-start;
 align-items: center;
-gap: 8px;
+gap: 12px;
 border-radius: 20px;
 background-color: var(--light-gray);
 }
 
+@media (max-width: 600px) {
 
+.card {
+flex-direction: row;
+justify-content: space-between; 
+gap: 8px;
+}
+
+.listCards {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+.left {
+flex-direction: row;
+gap: 8px;
+}
+
+.initials {
+  width: 40px;
+  height: 40px;
+    border-radius: 50px;
+}
+
+}
 
 .left {
 display: flex;
-flex-direction: row;
+flex-direction: column;
 justify-content: flex-start;
-gap: 8px;
+gap: 12px;
 align-items: center;
 width: 100%;
 }
@@ -101,10 +168,10 @@ gap: 12px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 52px;
+  height: 52px;
   background-color: white;
-  border-radius: 50px;
+  border-radius: 20px;
 }
 
 .initials p {

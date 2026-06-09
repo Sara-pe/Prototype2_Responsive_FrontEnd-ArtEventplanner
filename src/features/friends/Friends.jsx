@@ -5,15 +5,15 @@ import { useState, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 
 function useIsDesktop(breakpoint = 768) {
-  const [isDesktop, setIsDesktop] = useState(() => window.innerWidth >= breakpoint);
+    const [isDesktop, setIsDesktop] = useState(() => window.innerWidth >= breakpoint);
 
-  useEffect(() => {
-    const handler = () => setIsDesktop(window.innerWidth >= breakpoint);
-    window.addEventListener("resize", handler);
-    return () => window.removeEventListener("resize", handler);
-  }, [breakpoint]);
+    useEffect(() => {
+        const handler = () => setIsDesktop(window.innerWidth >= breakpoint);
+        window.addEventListener("resize", handler);
+        return () => window.removeEventListener("resize", handler);
+    }, [breakpoint]);
 
-  return isDesktop;
+    return isDesktop;
 }
 
 export const Friends = () => {
@@ -40,13 +40,13 @@ export const Friends = () => {
                             <button className="btn-icon" onClick={() => { setShowSearch(true) }}> <img src="/icons/search.png" alt="Search event" /> </button>
                         )}
                         <NavLink to='/users' className={isDesktop ? 'btn-add' : 'btn-icon'}>
-                            <img src="/icons/plus2.png" alt="Add friend" />
-                            {isDesktop && <p>Add new friend</p>}
+                            <img src={isDesktop ? "/icons/plus2.png" : "/icons/plus.png"} alt="Add friend" />
+                            {isDesktop && <>Add new friend</>}
                         </NavLink>
                     </div>
                 </div>
 
-   {showSearch && (<div className={styles.searchContainer}>
+                {showSearch && (<div className={styles.searchContainer}>
                     <input type="text" value={search} placeholder="   Search friend"
                         onChange={(e) => setSearch(e.target.value)} />
 
@@ -54,10 +54,10 @@ export const Friends = () => {
                 </div>
                 )}
 
-                <FriendList onNmbFriends={setNmbFriends} search={search}/>
+                <FriendList onNmbFriends={setNmbFriends} search={search} />
             </div>
         </div>
-   
-         
+
+
     )
 }
