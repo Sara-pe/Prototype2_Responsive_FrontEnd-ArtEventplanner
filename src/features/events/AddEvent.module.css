@@ -1,20 +1,31 @@
 /* ---------- Layout ---------- */
 .page {
-  background-color: #ffffff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(247, 250, 250, 0.80);
   min-height: 100vh;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
-  padding: 0 16px;
+  padding: 0;
+  width: 100%;
+  z-index: 999;
 }
 
 .container {
   width: 100%;
-  max-width: 400px;
-  padding-top: 8px;
   display: flex;
   flex-direction: column;
   gap: 24px;
+  max-width: 600px;
+  padding: 20px;
+  z-index: 1000;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
 }
 
 /* ---------- Header ---------- */
@@ -144,12 +155,37 @@ label {
   opacity: 0.85;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 600px) {
+  .page {
+    align-items: flex-start;
+    background-color: #ffffff;
+    padding: 0 16px;
+    position: static;
+    top: unset;
+    left: unset;
+  }
+
+  .container {
+    padding: 8px 0 0 0;
+    max-width: 100%;
+    position: static;
+    top: unset;
+    left: unset;
+    transform: none;
+  }
+
   .btn {
     background-color: #000000;
     color: #ffffff;
     border-radius: 20px;
   }
+}
+
+.closeIcon {
+  height: 14px;
+  width: auto;
+  position: absolute;
+  right: 8px;
 }
 
 

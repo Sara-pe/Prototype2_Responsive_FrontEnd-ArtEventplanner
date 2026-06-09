@@ -1,10 +1,24 @@
+import { useState, useEffect } from 'react'
 import { AddEventForm } from './components/AddEventForm'
 import { NavLink } from 'react-router-dom'
 import styles from './AddEvent.module.css'
 
-export const AddEvent = () => {
-    return (
+function useIsDesktop(breakpoint = 880) {
+  const [isDesktop, setIsDesktop] = useState(() => window.innerWidth >= breakpoint);
 
+  useEffect(() => {
+    const handler = () => setIsDesktop(window.innerWidth >= breakpoint);
+    window.addEventListener("resize", handler);
+    return () => window.removeEventListener("resize", handler);
+  }, [breakpoint]);
+
+  return isDesktop;
+}
+
+export const AddEvent = ({ onClose }) => {
+    const isDesktop = useIsDesktop();
+
+    return (
         <div className={styles.page}>
             <div className={styles.container}>
 
@@ -13,8 +27,10 @@ export const AddEvent = () => {
                 <div className={styles.header}>
                     <div className={styles.title}>
                         <h1>Add Event</h1>
-
-                        <NavLink to="/"> <img className={styles.prevArrow} src="/icons/prev.png" alt="Previous" /> </NavLink>
+                        {isDesktop
+                            ? <button onClick={onClose}><img className={styles.closeIcon} src="/icons/close.svg" alt="Close" /></button>
+                            : <NavLink to="/"><img className={styles.prevArrow} src="/icons/prev.png" alt="Previous" /></NavLink>
+                        }
                     </div>
 
                     <AddEventForm />

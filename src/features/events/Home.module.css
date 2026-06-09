@@ -8,6 +8,7 @@
     align-items: flex-start;
     justify-content: center;
     padding: 0;
+    position: relative;
 }
 
 .container {
@@ -176,6 +177,7 @@ background: #FBE9CC;
 @media (max-width: 600px) {
   .page {
     padding: 0 16px;
+    position: static;
   }
 
   .container {

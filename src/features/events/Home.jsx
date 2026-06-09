@@ -2,6 +2,7 @@ import styles from './Home.module.css'
 import { EventList } from './components/EventList'
 import { useState, useEffect } from 'react';
 import { NavLink } from "react-router-dom"
+import { AddEvent } from './AddEvent'
 
 function useIsDesktop(breakpoint = 880) {
   const [isDesktop, setIsDesktop] = useState(() => window.innerWidth >= breakpoint);
@@ -20,6 +21,7 @@ export const Home = () => {
     const [nmbEvents, setNmbEvents] = useState(0);
     const [search, setSearch] = useState('')
     const [showSearch, setShowSearch] = useState(false)
+
     const [showModal, setShowModal] = useState(false)
     const isDesktop = useIsDesktop();
 
@@ -62,6 +64,9 @@ export const Home = () => {
 
                 <EventList onNmbEvents={setNmbEvents} search={search} />
             </div>
+
+ {showModal && <AddEvent onClose={()=> setShowModal(false)}/>}
+
         </div>
 
     )
