@@ -1,66 +1,60 @@
-
 /*------------------- Home ------------------------*/
 
 .page {
-    background-color: #ffffff;
-    min-height: 100vh;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    padding: 0;
-    position: relative;
+  background-color: #ffffff;
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 0;
+  position: relative;
 }
 
 .container {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    gap: 40px;
-    margin-top: 28px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  gap: 40px;
+  margin-top: 28px;
 }
 
 .header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    padding-left: 32px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding-left: 32px;
 }
 
 .buttons {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
 }
 
 img {
-    height: 18px;
-    width: auto;
+  height: 18px;
+  width: auto;
 }
 
 .searchContainer {
   display: flex;
   flex-direction: row;
-justify-content: space-between;
-gap: 8px;
-align-items: center;
-width: 100%;
-padding-left: 32px;
+  justify-content: space-between;
+  gap: 8px;
+  align-items: center;
+  width: 100%;
+  padding-left: 32px;
 }
 
-@media (max-width: 600px) {
-  .searchContainer {
-padding-left: 0px;
-}
-}
 
 .searchContainer img {
-height: 12px;
-width: auto;
+  height: 12px;
+  width: auto;
 }
 
 /*------------------- EventList ------------------------*/
@@ -68,89 +62,89 @@ width: auto;
 
 .listCards {
   min-height: 100vh;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-   align-items: start;
-align-content: start;
-    padding: 20px 32px;
-    gap: 20px;
-    width: 100%;
-    overflow-y: auto;
-    background: linear-gradient(153deg, rgba(105, 114, 118, 0.03) 6.31%, rgba(105, 114, 118, 0.06) 82.97%);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  align-items: start;
+  align-content: start;
+  padding: 20px 32px;
+  gap: 20px;
+  width: 100%;
+  overflow-y: auto;
+  background: linear-gradient(153deg, rgba(105, 114, 118, 0.03) 6.31%, rgba(105, 114, 118, 0.06) 82.97%);
 }
 
 
 /*------------------- EventCard ------------------------*/
 .iconXs {
-height: 8px;
-width: auto;
+  height: 8px;
+  width: auto;
 }
 
 .firstLine {
-display: flex;
-flex-direction: row;
-justify-content: space-between;
-align-items: center;
-width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
 .firstLine div {
-display: flex;
-flex-direction: row;
-justify-content: flex-start;
-align-items: center;
-gap: 12px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 12px;
 }
 
 .tag {
-    color: black;
-    border-radius: 200px;
-border: 1px solid #000;
-padding: 1px 8px;
+  color: black;
+  border-radius: 200px;
+  border: 1px solid #000;
+  padding: 1px 8px;
 
 }
 
 .thirdLine {
-display: flex;
-flex-direction: row;
-justify-content: space-between;
-align-items: center;
-width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
 .thirdLine div {
-display: flex;
-flex-direction: row;
-justify-content: flex-start;
-align-items: center;
-gap: 12px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 12px;
 
 }
 
 .nmbInterested {
-    color: black;
+  color: black;
 
-    border-radius: 50px;
-border: 1px solid #FFF;
-width: 28px;
-height: 28px;
-font-size: 8px;
+  border-radius: 50px;
+  border: 1px solid #FFF;
+  width: 28px;
+  height: 28px;
+  font-size: 8px;
   display: flex;
-    align-items: center;
-    justify-content: center;
+  align-items: center;
+  justify-content: center;
 }
 
 .card {
-    display: flex;
-    width: 100%;
-    padding: 16px;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 8px;
-    border-radius: 32px;
-    min-width: 320px;
-    min-height: 159px;
+  display: flex;
+  width: 100%;
+  padding: 16px;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+  border-radius: 32px;
+  min-width: 320px;
+  min-height: 159px;
 }
 
 .card h3 {
@@ -161,37 +155,37 @@ font-size: 8px;
 }
 
 .color0 {
-background: #FBE9CC;
+  background: #FBE9CC;
 }
 
 .color1 {
-    background: #EAF1F3;
+  background: #EAF1F3;
 }
 
 .color2 {
-    background: #ACC2FF;
+  background: #ACC2FF;
 }
 
 .color3 {
-    background: #DCD5FB;
+  background: #DCD5FB;
 }
 
 .color4 {
-    background: #C5E9FA;
+  background: #C5E9FA;
 }
 
 /*------------------- EventCardSmall ------------------------*/
 
 .card2 {
-    display: flex;
-    width: 100%;
-    padding: 16px;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 8px;
-    border-radius: 32px;
-    cursor: pointer;
+  display: flex;
+  width: 100%;
+  padding: 16px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 8px;
+  border-radius: 32px;
+  cursor: pointer;
 }
 
 .card2:hover {
@@ -199,27 +193,41 @@ background: #FBE9CC;
 }
 
 .tag2 {
-    color: black;
-    border-radius: 200px;
-    padding: 1px 8px;
+  color: black;
+  border-radius: 200px;
+  padding: 1px 8px;
 }
 
 .nmbInterested2 {
-    color: black;
-    border-radius: 50px;
-    width: 28px;
-    height: 28px;
-    font-size: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  color: black;
+  border-radius: 50px;
+  width: 28px;
+  height: 28px;
+  font-size: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.border0 { border: 1px solid #FBE9CC; }
-.border1 { border: 1px solid #EAF1F3; }
-.border2 { border: 1px solid #ACC2FF; }
-.border3 { border: 1px solid #DCD5FB; }
-.border4 { border: 1px solid #C5E9FA; }
+.border0 {
+  border: 1px solid #FBE9CC;
+}
+
+.border1 {
+  border: 1px solid #EAF1F3;
+}
+
+.border2 {
+  border: 1px solid #ACC2FF;
+}
+
+.border3 {
+  border: 1px solid #DCD5FB;
+}
+
+.border4 {
+  border: 1px solid #C5E9FA;
+}
 
 /* --- mobile --- */
 @media (max-width: 600px) {
@@ -243,7 +251,7 @@ background: #FBE9CC;
   }
 
   .listCards {
-      min-height: fit-content;
+    min-height: fit-content;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -257,6 +265,9 @@ background: #FBE9CC;
     min-width: 300px;
     min-height: 0;
   }
+
+  .searchContainer {
+    padding-left: 0px;
+  }
+
 }
-
-

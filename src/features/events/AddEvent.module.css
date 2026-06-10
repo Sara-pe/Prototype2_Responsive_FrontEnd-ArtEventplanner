@@ -157,6 +157,13 @@ label {
   opacity: 0.85;
 }
 
+.closeIcon {
+  height: 14px;
+  width: auto;
+  position: absolute;
+  right: 8px;
+}
+
 @media (max-width: 600px) {
   .page {
     align-items: flex-start;
@@ -188,12 +195,7 @@ label {
   }
 }
 
-.closeIcon {
-  height: 14px;
-  width: auto;
-  position: absolute;
-  right: 8px;
-}
+
 
 
 

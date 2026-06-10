@@ -247,14 +247,6 @@ label {
   opacity: 0.85;
 }
 
-@media (max-width: 480px) {
-  .btn {
-    background-color: #000000;
-    color: #ffffff;
-    border-radius: 20px;
-  }
-}
-
 .link {
   text-decoration: none;
   font-weight: 400;
@@ -483,6 +475,15 @@ a:hover {
 }
 
 /* --- mobile --- */
+
+@media (max-width: 480px) {
+  .btn {
+    background-color: #000000;
+    color: #ffffff;
+    border-radius: 20px;
+  }
+}
+
 @media (max-width: 600px) {
   .page {
     padding: 0 16px;
