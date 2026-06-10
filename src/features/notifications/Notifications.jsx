@@ -6,8 +6,21 @@ import { useEffect, useState } from 'react'
 import { useSetAtom } from 'jotai'
 import { NotificationAtom } from '../../atoms/notifications.atom'
 
+function useIsDesktop(breakpoint = 600) {
+    const [isDesktop, setIsDesktop] = useState(() => window.innerWidth >= breakpoint);
+
+    useEffect(() => {
+        const handler = () => setIsDesktop(window.innerWidth >= breakpoint);
+        window.addEventListener("resize", handler);
+        return () => window.removeEventListener("resize", handler);
+    }, [breakpoint]);
+
+    return isDesktop;
+}
+
 export const Notifications = () => {
 
+    const isDesktop = useIsDesktop();
 
     const [active, setActive] = useState(1)
     const [nmbInvites, setNmbInvites] = useState(null)
@@ -30,7 +43,7 @@ export const Notifications = () => {
 
                     {/* Header */}
                     <div className={styles.header}>
-                        <h1>Notifications</h1>
+                       {isDesktop ? <h3>Notifications</h3> : <h1>Notifications</h1> }
                         <p className='subtitle'>You have {nmbNotifications} notifications</p>
                     </div>
                     <div className={styles.buttons}>

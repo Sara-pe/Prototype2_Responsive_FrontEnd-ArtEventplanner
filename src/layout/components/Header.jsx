@@ -3,6 +3,7 @@ import { NotificationAtom } from '../../atoms/notifications.atom'
 import { nameAtom } from '../../atoms/name.atom.js'
 import { useAtomValue } from "jotai"
 import { useState, useEffect } from "react"
+import { Notifications } from '../../features/notifications/Notifications'
 
 function useIsDesktop(breakpoint = 600) {
     const [isDesktop, setIsDesktop] = useState(() => window.innerWidth >= breakpoint);
@@ -21,6 +22,7 @@ export const Header = () => {
     const notifications = useAtomValue(NotificationAtom)
     const name = useAtomValue(nameAtom)
     const isDesktop = useIsDesktop();
+    const [showNotifications, setShowNotifications] = useState(false);
 
 
     return (
@@ -34,10 +36,19 @@ export const Header = () => {
 
 
                     <div className="btn-icon">
-                        <NavLink to="/notifications"> <img src="/icons/notifications.png" alt="Notifications" /> </NavLink>
+                        {isDesktop
+                            ? <button onClick={() => setShowNotifications(!showNotifications)}><img src="/icons/notifications.png" alt="Notifications" /></button>
+                            : <NavLink to="/notifications"><img src="/icons/notifications.png" alt="Notifications" /></NavLink>
+                        }
                         <div className="nmb-notifications">  <p>{notifications}</p></div>
                     </div></div> </div>
 
+           {showNotifications && (
+  <>
+    <Notifications />
+  </>
+)}
+            
         </div>
 
     )

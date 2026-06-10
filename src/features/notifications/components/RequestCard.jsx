@@ -44,12 +44,7 @@ export const RequestCard = ({ index, request }) => {
     }
 
     return (
-        <div className={`${styles.cardReq} ${index % 5 === 0 ? styles.color0 :
-            index % 5 === 1 ? styles.color1 :
-                index % 5 === 2 ? styles.color2 :
-                    index % 5 === 3 ? styles.color3 :
-                        styles.color4
-            }`}>
+        <div className={styles.cardReq}>
 
             <div className={styles.thirdLine}>
                 <div className={styles.initials}>
