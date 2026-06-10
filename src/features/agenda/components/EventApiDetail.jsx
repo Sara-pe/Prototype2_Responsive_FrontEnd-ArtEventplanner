@@ -90,108 +90,111 @@ export const EventApiDetail = () => {
                     </div>
                 </div>
 
+
+
                 {/* Event Info */}
-                <div className={styles.eventDetails}>
+                <div className={styles.eventInfo}>
+                    <div className={styles.eventDetails}>
 
 
-                    {/* CardIntro*/}
-                    <div className={styles.cardIntro}>
-                        <img src={(Array.isArray(data.media) ? data.media?.[0]?.link : data.media?.link) || 'https://dummyimage.com/243x326/ccd6d9/266582.png&text=+'} alt={data.translations?.en?.name} />
+                        {/* CardIntro*/}
+                        <div className={styles.cardIntro}>
+                            <img src={(Array.isArray(data.media) ? data.media?.[0]?.link : data.media?.link) || 'https://dummyimage.com/243x326/ccd6d9/266582.png&text=+'} alt={data.translations?.en?.name} />
 
-                    </div>
-                </div>
-
-
-                <div className={styles.infoContainer}>
-                    <div className={styles.locationContainer}>
-                        <img src="/icons/building.png" alt="" />
-                        <div>
-                            <p className={styles.at}>{data.place?.translations?.en?.name}</p>
-                            <p> {data.place?.translations?.en?.address_city}</p>
                         </div>
                     </div>
 
-                    {data.is_free ? (
-                        <p className={styles.hour}>Free</p>
-                    ) : data.prices ? (
-                        <p className={styles.hour}>
-                            {Array.isArray(data.prices)
-                                ? `€${data.prices[0]?.value}`
-                                : `€${data.prices?.value}`
-                            }
-                        </p>
-                    ) : (
-                        <p>Various prices</p>
-                    )}
 
+                    <div className={styles.infoContainer}>
+                        <div className={styles.locationContainer}>
+                            <img src="/icons/building.png" alt="" />
+                            <div>
+                                <p className={styles.at}>{data.place?.translations?.en?.name}</p>
+                                <p> {data.place?.translations?.en?.address_city}</p>
+                            </div>
+                        </div>
 
-                </div>
-
-                <div className={styles.descripContainer}>
-                    <div ref={textRef} className={expanded ? styles.textExpanded : styles.textCollapsed}>
-
-                        {data.translations?.en?.longdescr?.split('\n').map((sentence, index) => (
-                            <p key={index}>{sentence}</p>
-                        ))}
-                    </div>
-
-
-                    {isOverflowing &&
-                        <div className={styles.btnContainer}>
-                            <button onClick={() => setExpanded(!expanded)} className='btn-2'>
-                                {expanded ? 'Read less' : 'Read more'}
-                            </button>
-                        </div>}
-                </div>
-
-                <div className={styles.scheduleContainer}>
-
-                    <h3>Dates</h3>
-
-                    <div>
-
-                        {data.weekschema ? (
-                            Array.isArray(data.weekschema.translations?.en)
-                                ? data.weekschema.translations.en.map((line, i) => (
-                                    <p key={i}>{line}</p>
-                                ))
-                                : <p>{data.weekschema.translations?.en}</p>
+                        {data.is_free ? (
+                            <p className={styles.hour}>Free</p>
+                        ) : data.prices ? (
+                            <p className={styles.hour}>
+                                {Array.isArray(data.prices)
+                                    ? `€${data.prices[0]?.value}`
+                                    : `€${data.prices?.value}`
+                                }
+                            </p>
                         ) : (
-                            // Event-style: show specific dates and hours
-                            (Array.isArray(data.dates) ? data.dates : data.dates ? [data.dates] : []).map((date, i) => (
-                                <p key={i}>
-                                    {new Date(date.day).toLocaleDateString('en-GB', {
-                                        weekday: 'short', day: 'numeric', month: 'short'
-                                    })}
-                                    {date.start && ` · ${date.start.slice(0, 5)}`}
-                                    {date.end && ` - ${date.end.slice(0, 5)}`}
-                                </p>
-                            ))
+                            <p>Various prices</p>
                         )}
+
+
                     </div>
 
-                    <a className={styles.linkVB} href={data.translations?.en?.agenda_url} target="_blank" rel="noopener noreferrer">
-                        visit.brussels <img className={styles.imgLinkVB} src="/icons/link.png" alt="Link to visit.brussles" />
-                    </a>
+                  {data.translations?.en?.longdescr &&  <div className={styles.descripContainer}>
+                        <div ref={textRef} className={expanded ? styles.textExpanded : styles.textCollapsed}>
+
+                            {data.translations?.en?.longdescr?.split('\n').map((sentence, index) => (
+                                <p key={index}>{sentence}</p>
+                            ))}
+                        </div>
+
+
+                        {isOverflowing &&
+                            <div className={styles.btnContainer}>
+                                <button onClick={() => setExpanded(!expanded)} className='btn-2'>
+                                    {expanded ? 'Read less' : 'Read more'}
+                                </button>
+                            </div>}
+                    </div>}
+
+                    <div className={styles.scheduleContainer}>
+
+                        <h3>Dates</h3>
+
+                        <div>
+
+                            {data.weekschema ? (
+                                Array.isArray(data.weekschema.translations?.en)
+                                    ? data.weekschema.translations.en.map((line, i) => (
+                                        <p key={i}>{line}</p>
+                                    ))
+                                    : <p>{data.weekschema.translations?.en}</p>
+                            ) : (
+                                // Event-style: show specific dates and hours
+                                (Array.isArray(data.dates) ? data.dates : data.dates ? [data.dates] : []).map((date, i) => (
+                                    <p key={i}>
+                                        {new Date(date.day).toLocaleDateString('en-GB', {
+                                            weekday: 'short', day: 'numeric', month: 'short'
+                                        })}
+                                        {date.start && ` · ${date.start.slice(0, 5)}`}
+                                        {date.end && ` - ${date.end.slice(0, 5)}`}
+                                    </p>
+                                ))
+                            )}
+                        </div>
+
+                        <a className={styles.linkVB} href={data.translations?.en?.agenda_url} target="_blank" rel="noopener noreferrer">
+                            visit.brussels <img className={styles.imgLinkVB} src="/icons/link.png" alt="Link to visit.brussles" />
+                        </a>
+                    </div>
+
+
+
+
+                    <div className={styles.location}>
+
+                        <iframe
+                            width="100%"
+                            height="216"
+                            className={styles.maps}
+                            src={`https://www.google.com/maps?q=${encodeURIComponent(data.place?.translations?.en?.address_line1)}&output=embed`}
+                        />
+
+                    </div>
+
+                    <NavLink to="/add-api" state={{ event: data }} className={styles.btnShare}> Add event </NavLink>
+
                 </div>
-
-
-
-
-                <div className={styles.location}>
-
-                    <iframe
-                        width="100%"
-                        height="216"
-                        className={styles.maps}
-                        src={`https://www.google.com/maps?q=${encodeURIComponent(data.place?.translations?.en?.address_line1)}&output=embed`}
-                    />
-
-                </div>
-
-                <NavLink to="/add-api" state={{ event: data }} className={styles.btnShare}> Add event </NavLink>
-
-
             </div>
 
         </div>
