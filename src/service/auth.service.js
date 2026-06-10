@@ -3,7 +3,7 @@ import axios from 'axios';
 const authService = {
     register: async (userData) => {
         try {
-            const response = await axios.post("http://localhost:3000/api/auth/register", userData);
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/register`, userData);
             return response.data;
 
         } catch (error) {
@@ -19,7 +19,7 @@ const authService = {
     login: async ({ email, password }) => {
 
         try {
-            const response = await axios.post("http://localhost:3000/api/auth/login", { email, password })
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/login`, { email, password })
             return response.data
 
         } catch (error) {

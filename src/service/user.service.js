@@ -13,7 +13,7 @@ const userService = {
         const payload = JSON.parse(atob(token.split('.')[1]))
         const userId = payload.id
 
-        const response = await axios.get(`http://localhost:3000/api/users/${userId}`, {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/users/${userId}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -25,7 +25,7 @@ const userService = {
     getAll: async () => {
 
         const token = getDefaultStore().get(saveAtom)
-        const response = await axios.get(`http://localhost:3000/api/users`, {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/users`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -37,7 +37,7 @@ const userService = {
     sendFriendRequest: async (targetUserId) => {
         const token = getDefaultStore().get(saveAtom)
 
-        const response = await axios.post(`http://localhost:3000/api/users/${targetUserId}/friendRequests`, {}, {
+        const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/users/${targetUserId}/friendRequests`, {}, {
             headers: { Authorization: `Bearer ${token}` }
         })
         return response.data
@@ -51,7 +51,7 @@ const userService = {
         const userId = payload.id
 
 
-        const response = await axios.patch(`http://localhost:3000/api/users/${userId}/friendRequests/${friendRequestId}`, 
+        const response = await axios.patch(`${import.meta.env.VITE_API_URL}/api/users/${userId}/friendRequests/${friendRequestId}`, 
             { status }, 
             {headers: { Authorization: `Bearer ${token}` }
         })
@@ -65,7 +65,7 @@ const userService = {
         const userId = payload.id
 
 
-        const response = await axios.delete(`http://localhost:3000/api/users/${userId}/friends/${friendId}`, 
+        const response = await axios.delete(`${import.meta.env.VITE_API_URL}/api/users/${userId}/friends/${friendId}`, 
             {headers: { Authorization: `Bearer ${token}` }
         })
         return response.data
