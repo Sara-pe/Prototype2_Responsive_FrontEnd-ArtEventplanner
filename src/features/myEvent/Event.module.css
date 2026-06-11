@@ -315,7 +315,8 @@
     color: white;
     font-size: 16px;
     margin: 0px;
-    width: 100%;
+    width: 40%;
+     margin-inline: auto;
 }
 
 .btnShare:hover {
@@ -617,4 +618,7 @@
         background-color: #00000060;
     }
 
+    .btnShare {
+    width: 100%;
+}
 }

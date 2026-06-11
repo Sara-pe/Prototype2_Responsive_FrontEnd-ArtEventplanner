@@ -34,7 +34,7 @@ export const Friends = () => {
 
                     <div className={styles.buttons}>
                         {isDesktop ? (
-                            <input className="search-field" type="text" value={search} placeholder="   Search friend"
+                            <input className="search-field" type="text" value={search} placeholder="Search friend"
                                 onChange={(e) => setSearch(e.target.value)} />
                         ) : (
                             <button className="btn-icon" onClick={() => { setShowSearch(true) }}> <img src="/icons/search.png" alt="Search event" /> </button>

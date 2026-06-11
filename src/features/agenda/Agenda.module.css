@@ -292,7 +292,7 @@ label {
 
 .btn {
   width: 100%;
-  border-radius: 10px;
+  border-radius: 20px;
   background: #065981;
   color: #FFF;
   font-weight: 600;
@@ -522,6 +522,8 @@ a:hover {
   color: white;
   font-size: 16px;
   text-decoration: none;
+   width: 40%;
+     margin-inline: auto;
 }
 
 .btnShare:hover {
@@ -635,5 +637,9 @@ a:hover {
 
      max-height: fit-content;
   }
+
+  .btnShare {
+  width: 100%;
+}
 
 }

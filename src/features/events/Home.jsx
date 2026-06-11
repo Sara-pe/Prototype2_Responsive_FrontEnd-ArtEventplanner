@@ -42,7 +42,7 @@ export const Home = () => {
 
                     <div className={styles.buttons}>
                         {isDesktop ? (
-                            <input className="search-field" type="text" value={search} placeholder="   Search event"
+                            <input className="search-field" type="text" value={search} placeholder="Search event"
                                 onChange={(e) => setSearch(e.target.value)} />
                         ) : (
                             <button className="btn-icon" onClick={() => setShowSearch(true)}> <img src="/icons/search.png" alt="Search event" /> </button>
@@ -57,7 +57,7 @@ export const Home = () => {
 
                 </div>
                 {showSearch && !isDesktop && (<div className={styles.searchContainer}>
-                    <input type="text" value={search} placeholder=" Search event"
+                    <input type="text" value={search} placeholder="Search event"
                         onChange={(e) => setSearch(e.target.value)} />
 
                     <button onClick={() => setShowSearch(false)}>{/*<img src="/icons/close.svg" alt="Close search bar" /> */}<p className='black'>Cancel</p></button>
