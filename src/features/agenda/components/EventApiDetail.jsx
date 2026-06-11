@@ -130,7 +130,7 @@ export const EventApiDetail = () => {
 
                     </div>
 
-                  {data.translations?.en?.longdescr &&  <div className={styles.descripContainer}>
+                    {data.translations?.en?.longdescr && <div className={styles.descripContainer}>
                         <div ref={textRef} className={expanded ? styles.textExpanded : styles.textCollapsed}>
 
                             {data.translations?.en?.longdescr?.split('\n').map((sentence, index) => (
