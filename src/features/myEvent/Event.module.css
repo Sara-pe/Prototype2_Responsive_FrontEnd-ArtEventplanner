@@ -20,7 +20,6 @@
     position: relative;
     gap: 40px;
     margin-top: 28px;
-    margin-bottom: 28px;
 }
 
 .header {
@@ -50,21 +49,32 @@
 }
 
 /* ---------- Event Info ---------- */
+
+.divScroll {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    height: calc(100vh - 206px);
+    max-height: fit-content;
+    overflow-y: scroll;
+    margin-left: 32px;
+
+    padding-bottom: 32px;
+}
+
+
+
 .eventDetails {
 
     display: flex;
     flex-direction: column;
     gap: 28px;
     width: 100%;
-
     border-radius: 30px;
     background: #F6F7F7;
     padding: 30px;
-    margin-left: 32px;
-
-    height: calc(100vh - 238px);
     max-height: fit-content;
-    overflow-y: scroll;
 }
 
 .containerCardIntro {
@@ -356,7 +366,7 @@
     background-color: rgb(255, 255, 255);
     max-height: 640px;
     height: fit-content;
-     box-shadow: 0 1px 8px 0 rgb(0 0 0 / 0.08);
+    box-shadow: 0 1px 8px 0 rgb(0 0 0 / 0.08);
 }
 
 .headerModal {
@@ -509,9 +519,11 @@
     align-items: flex-start;
     justify-content: flex-start;
     width: 400px;
-    height: calc(100vh - 238px);
+    height: calc(100vh - 206px);
     overflow-y: scroll;
     max-height: 931px;
+
+    padding-bottom: 32px;
 }
 
 .sideListCards {
@@ -571,9 +583,18 @@
         border-radius: 0px;
         background: none;
         padding: 0px;
-        margin-left: 0px;
         height: fit-content;
     }
+
+    .divScroll {
+        height: fit-content;
+        margin-left: 0px;
+        padding-bottom: 0px;
+    }
+
+    .listEvents {
+    padding-bottom: 0px;
+}
 
     .header {
         margin-left: 0px;
@@ -585,14 +606,14 @@
 
     .modal {
 
-    width: 96%;
-     box-shadow: none;
+        width: 96%;
+        box-shadow: none;
 
-}
+    }
 
-.modalContainer {
-    width: 100vw;
-    max-width: 440px;
-}
+    .modalContainer {
+        width: 100vw;
+        max-width: 440px;
+    }
 
 }

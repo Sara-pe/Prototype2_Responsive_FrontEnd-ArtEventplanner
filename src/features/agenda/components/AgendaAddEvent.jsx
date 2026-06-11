@@ -34,7 +34,7 @@ export const AgendaAddEvent = () => {
                 {/* Header */}
 
                 <div className={styles.headerForm}>
-                    <div className={styles.title}>
+                    <div className={styles.titleForm}>
 
                   
                       <h4 className={styles.promptEvent}>Pick your date and time for</h4>

@@ -128,6 +128,8 @@ export const EventDetail = () => {
 
                 {/* Event Info */}
                 <div className={styles.containerDesktop}>
+
+                    <div className={styles.divScroll}>
                     <div className={styles.eventDetails}>
 
                         {isDesktop
@@ -242,6 +244,7 @@ export const EventDetail = () => {
                             <button className={styles.btnDelete} onClick={() => handleDelete(event._id)}> <span>Delete</span></button>
                         </div>
 
+                    </div>
                     </div>
 
                     {isBreakpoint && (

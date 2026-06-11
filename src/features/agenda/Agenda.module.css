@@ -25,6 +25,8 @@
   border-radius: 30px;
   background: #F6F7F7;
   padding: 32px;
+
+  margin-bottom: 32px; /* Change for padding-bottom in the parent div when adding the event list carrousel*/
 }
 
 .header {
@@ -44,7 +46,8 @@
   align-items: flex-start;
   gap: 88px;
 
-  width: 100%;
+  margin-right: -32px;
+ /* width: 100%; */
   padding: 20px 0px 20px 32px;
   background: linear-gradient(153deg, rgba(105, 114, 118, 0.03) 6.31%, rgba(105, 114, 118, 0.06) 82.97%);
 }
@@ -131,9 +134,10 @@
 }
 
 
-.title {
+.titleForm {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: center; 
   align-items: center;
   position: relative;
   width: 100%;
@@ -304,9 +308,11 @@ a:hover {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start; /**/
   position: relative;
   width: 100%;
+
+  padding-left: 48px;
 }
 
 .prevArrow {
@@ -347,7 +353,7 @@ a:hover {
 .nameAdapted {
   font-size: 20px;
   width: 80%;
-  text-align: center;
+  text-align: left;
 
 }
 
@@ -520,6 +526,7 @@ a:hover {
   .content {
     padding: 0px;
     background: transparent;
+    margin-right: 0px;
   }
 
 
@@ -533,11 +540,22 @@ a:hover {
     border-radius: 0px;
     background: transparent;
     padding: 0px;
+    margin-bottom: 0px; 
   }
 
   .scheduleContainer {
   margin-left: -16px;
   margin-right: -16px;
 }
+
+.nameAdapted {
+  text-align: center;
+}
+
+.title {
+  align-items: center; 
+  padding-left: 0px;
+}
+
 
 }
