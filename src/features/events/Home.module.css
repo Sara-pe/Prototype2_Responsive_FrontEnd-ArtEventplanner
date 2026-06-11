@@ -2,7 +2,7 @@
 
 .page {
   background-color: #ffffff;
-  min-height: 100vh;
+  min-height: calc(100vh - 100px);
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -61,16 +61,17 @@ img {
 
 
 .listCards {
-  min-height: 100vh;
+  min-height: calc(100vh - 228px);
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   align-items: start;
   align-content: start;
   padding: 20px 32px;
   gap: 20px;
-  width: 100%;
+  /*width: 100%;*/
   overflow-y: auto;
   background: linear-gradient(153deg, rgba(105, 114, 118, 0.03) 6.31%, rgba(105, 114, 118, 0.06) 82.97%);
+margin-right: -32px;
 }
 
 
@@ -258,6 +259,7 @@ img {
     align-items: center;
     background: none;
     padding: 0;
+    margin-right: 0px;
   }
 
   .card {
