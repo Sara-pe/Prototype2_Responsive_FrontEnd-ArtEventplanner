@@ -1,16 +1,31 @@
 import styles from '../Agenda.module.css'
 import { useId } from 'react';
 import { NavLink, useNavigate, useLocation } from 'react-router';
+import { useState, useEffect } from 'react';
 
 import eventService from '../../../service/event.service'
 
-export const AgendaAddEvent = () => {
+function useIsDesktop(breakpoint = 600) {
+    const [isDesktop, setIsDesktop] = useState(() => window.innerWidth >= breakpoint);
+
+    useEffect(() => {
+        const handler = () => setIsDesktop(window.innerWidth >= breakpoint);
+        window.addEventListener("resize", handler);
+        return () => window.removeEventListener("resize", handler);
+    }, [breakpoint]);
+
+    return isDesktop;
+}
+
+export const AgendaAddEvent = ({ onClose, event: eventProp }) => {
+
+    const isDesktop = useIsDesktop();
 
     const id = useId();
     const navigate = useNavigate();
 
     const { state } = useLocation()
-    const event = state?.event
+    const event = eventProp ?? state?.event
 
     console.log(event)
 
@@ -28,19 +43,20 @@ export const AgendaAddEvent = () => {
 
     return (
 
-        <div className={styles.page}>
-            <div className={styles.container}>
+        <div className={styles.pageForm}>
+            <div className={styles.containerForm}>
 
                 {/* Header */}
 
                 <div className={styles.headerForm}>
                     <div className={styles.titleForm}>
 
-                  
-                      <h4 className={styles.promptEvent}>Pick your date and time for</h4>
-                       <h3 className={styles.nameEvent}>{event?.translations?.en?.name}</h3> 
-                       
-                        <NavLink to="/agenda"> <img className={styles.prevArrow} src="/icons/prev.png" alt="Previous" /> </NavLink>
+
+                        <h4 className={styles.promptEvent}>Pick your date and time for</h4>
+                        <h3 className={styles.nameEvent}>{event?.translations?.en?.name}</h3>
+                        {isDesktop
+                            ? <button onClick={onClose}><img className={styles.closeIcon} src="/icons/close.svg" alt="Close" /></button>
+                            : <NavLink to="/agenda"> <img className={styles.prevArrow} src="/icons/prev.png" alt="Previous" /> </NavLink>}
                     </div>
                 </div>
 
@@ -138,5 +154,3 @@ export const AgendaAddEvent = () => {
     )
 
 }
-
-//*! ------------------ input fields need to be filled to submit!!! ---------

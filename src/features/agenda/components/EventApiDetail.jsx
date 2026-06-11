@@ -4,6 +4,19 @@ import { useState, useEffect, useRef } from 'react'
 import { RecCard } from './RecCard'
 import { useParams } from 'react-router-dom'
 import { NavLink } from 'react-router-dom'
+import { AgendaAddEvent } from './AgendaAddEvent'
+
+function useIsDesktop(breakpoint = 880) {
+    const [isDesktop, setIsDesktop] = useState(() => window.innerWidth >= breakpoint);
+
+    useEffect(() => {
+        const handler = () => setIsDesktop(window.innerWidth >= breakpoint);
+        window.addEventListener("resize", handler);
+        return () => window.removeEventListener("resize", handler);
+    }, [breakpoint]);
+
+    return isDesktop;
+}
 
 export const EventApiDetail = () => {
 
@@ -16,6 +29,13 @@ export const EventApiDetail = () => {
 
     const textRef = useRef(null)
     const [isOverflowing, setIsOverflowing] = useState(false)
+
+    const [showModal, setShowModal] = useState(false)
+    const isDesktop = useIsDesktop();
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
 
     useEffect(() => {
 
@@ -192,10 +212,15 @@ export const EventApiDetail = () => {
 
                     </div>
 
-                    <NavLink to="/add-api" state={{ event: data }} className={styles.btnShare}> Add event </NavLink>
+                    {isDesktop ? <button onClick={() => setShowModal(true)} className={styles.btnShare}> Add event </button>
+                        : <NavLink to="/add-api" state={{ event: data }} className={styles.btnShare}> Add event </NavLink>}
 
                 </div>
             </div>
+
+           {showModal && isDesktop && (
+    <AgendaAddEvent event={data} onClose={() => setShowModal(false)} />
+)}
 
         </div>
 

@@ -14,6 +14,10 @@
 }
 
 .container {
+  max-height: 90vh;
+  overflow-y: scroll;
+height: fit-content;
+
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -186,6 +190,7 @@ label {
     margin-bottom: 32px;
     max-width: 400px;
     box-shadow: none;
+    max-height: fit-content;
   }
 
   .btn {
