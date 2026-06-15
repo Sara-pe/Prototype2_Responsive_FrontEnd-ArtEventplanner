@@ -71,7 +71,7 @@ export const Rec2 = () => {
 
     return (
         <div className={styles.containerRec}>
-            <h2>Exhibitions</h2>
+            <h2>Contemporary art</h2>
             <div className={styles.carrousel}>
                 <div className={styles.eventList}>
                     {data.map((event, index) => (<RecCard key={index} event={event} index={index} />))}
