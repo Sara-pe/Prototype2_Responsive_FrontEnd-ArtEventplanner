@@ -3,6 +3,13 @@ import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { RecCard } from './RecCard'
 
+const toArray = (events) => {
+    if (!events) return []
+    if (Array.isArray(events)) return events
+    if (Object.keys(events).length === 0) return []
+    return [events]
+}
+
 export const Rec2 = () => {
 
     const [data, setData] = useState([])
@@ -13,28 +20,33 @@ export const Rec2 = () => {
 
         const fetchArtEventsApi = async () => {
 
-            //Guided tours contemporary art: events/category?mainCategory=102&subCategory=251
-            //Painting: events/category?mainCategory=23&subCategory=30
-            //Sculpture: events/category?mainCategory=23&subCategory=26
-            //Installation: events/category?mainCategory=23&subCategory=29
-
             try {
                 const headers = {
                     Authorization: 'Bearer c5442c25-bdd2-3434-9385-9101b673cc53',
                     Accept: 'application/json'
                 }
 
-                const [painting, sculpture, contemporaryArt] = await Promise.all([
-                    axios.get('https://api.brussels:443/api/agenda/0.0.1/events/category?mainCategory=23&subCategory=30', { headers }),
-                    axios.get('https://api.brussels:443/api/agenda/0.0.1/events/category?mainCategory=23&subCategory=26', { headers }),
-                    axios.get('https://api.brussels:443/api/agenda/0.0.1/events/category?mainCategory=102&subCategory=251', { headers })
+        
+                const [wiels, bozar, ninoMier, almineReich, laLoge, walterBlanc
+                ] = await Promise.all([
+                    axios.get('https://api.brussels:443/api/agenda/0.0.1/events/location?lon=4.3257873&lat=50.8243881&dist=10', { headers }),
+                    axios.get('https://api.brussels:443/api/agenda/0.0.1/events/location?lon=4.3595536&lat=50.8442559&dist=10', { headers }),
+                    axios.get('https://api.brussels:443/api/agenda/0.0.1/events/location?lon=4.3543284&lat=50.8399647&dist=10', { headers }),
+                    axios.get('https://api.brussels:443/api/agenda/0.0.1/events/location?lon=4.3685720&lat=50.8190336&dist=10', { headers }),
+                    axios.get('https://api.brussels:443/api/agenda/0.0.1/events/location?lon=4.3656810&lat=50.8284465&dist=10', { headers }),
+                    axios.get('https://api.brussels:443/api/agenda/0.0.1/events/location?lon=4.2995581&lat=50.8625391&dist=100', { headers }),
+
+
                 ])
 
                 const combined = [
-                    ...(painting.data.response.results.event || []),
-                    ...(sculpture.data.response.results.event || []),
-                    ...(contemporaryArt.data.response.results.event || [])
-                ]
+                    ...toArray(wiels.data.response.results.event),
+                    ...toArray(bozar.data.response.results.event),
+                    ...toArray(ninoMier.data.response.results.event),
+                    ...toArray(almineReich.data.response.results.event),
+                    ...toArray(laLoge.data.response.results.event),
+                    ...toArray(walterBlanc.data.response.results.event)
+                ].sort((a, b) => new Date(a.date_end) - new Date(b.date_end))
 
                 setData(combined)
                 setLoading(false)

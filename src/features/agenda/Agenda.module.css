@@ -466,7 +466,7 @@ a:hover {
   justify-content: flex-start;
   align-items: flex-start;
   gap: 4px;
-  max-height: 208px;
+    max-height: 196px; 
   overflow-y: hidden;
 }
 
