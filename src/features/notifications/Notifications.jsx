@@ -30,11 +30,11 @@ export const Notifications = () => {
     const nmbNotifications = Math.floor((nmbRequests || 0) + (nmbInvites || 0))
 
     useEffect(() => {
+        if (nmbRequests === null || nmbInvites === null) return
+
         setNotifications(nmbNotifications)
 
-    }, [nmbNotifications]
-
-    )
+    }, [nmbNotifications, nmbRequests, nmbInvites])
     return (
         <div>
 
