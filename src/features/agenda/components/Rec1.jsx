@@ -49,7 +49,7 @@ export const Rec1 = () => {
         <div className={styles.carrousel}>
             <div className={styles.eventList}>
                 {data.map((event, index) => (
-                    <RecCard key={index} index={index} event={event} />
+                    <RecCard key={index} index={index} event={event} category="popular events" list={data} />
                 ))}
                 <div className={styles.line}></div>
             </div>

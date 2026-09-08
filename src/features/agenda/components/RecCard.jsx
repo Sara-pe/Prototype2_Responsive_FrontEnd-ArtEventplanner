@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { NavLink } from "react-router-dom"
 import { useNavigate } from 'react-router-dom';
 
-export const RecCard = ({ index, event }) => {
+export const RecCard = ({ index, event, category, list }) => {
 
     const navigate = useNavigate();
 
@@ -40,7 +40,7 @@ export const RecCard = ({ index, event }) => {
 
             {/*   <NavLink to="/add-api" state={{ event }} className={`btn-1 ${styles.btnFit}`}> Add event </NavLink> */}
 
-            <button className={`btn-1 ${styles.btnFit}`} onClick={() => navigate(`/eventsApi/${event.id}`, { state: { event } })}>More info</button>
+            <button className={`btn-1 ${styles.btnFit}`} onClick={() => navigate(`/eventsApi/${event.id}`, { state: { event, category, list } })}>More info</button>
         </div>
     )
 }

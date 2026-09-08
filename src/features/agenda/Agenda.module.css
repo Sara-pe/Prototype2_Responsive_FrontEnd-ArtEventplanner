@@ -1,7 +1,7 @@
 /* --- desktop --- */
 .page {
   background-color: #ffffff;
-  min-height: 100vh;
+  min-height: calc(100vh - 100px);
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -352,6 +352,76 @@ a:hover {
 
 /* ---------- EventDetail ---------- */
 
+.containerDesktop {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 20px;
+  width: 100%;
+}
+
+.divScroll {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 0%;
+  min-width: 0;
+  height: calc(100vh - 206px);
+  overflow-y: scroll;
+}
+
+.listEvents {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 400px;
+  flex-shrink: 0;
+  height: calc(100vh - 206px);
+  overflow-y: scroll;
+  padding: 0 8px 32px;
+}
+
+.sideListCards {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+}
+
+.cardSmall {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  align-items: center;
+  width: 100%;
+  padding: 16px;
+  border-radius: 32px;
+  cursor: pointer;
+}
+
+.cardSmall:hover {
+  box-shadow: 0 1px 8px 0 rgb(0 0 0 / 0.08);
+}
+
+.cardSmall img {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 16px;
+  flex-shrink: 0;
+}
+
+.cardSmall h4 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 
 .title {
   display: flex;
@@ -553,6 +623,7 @@ a:hover {
 
 @media (max-width: 600px) {
   .page {
+    min-height: 100vh;
     padding: 0 16px;
     position: static;
   }
@@ -593,6 +664,13 @@ a:hover {
     background: transparent;
     padding: 0px;
     margin-bottom: 0px;
+  }
+
+  .divScroll {
+    flex: unset;
+    min-width: unset;
+    height: auto;
+    overflow-y: visible;
   }
 
   .scheduleContainer {

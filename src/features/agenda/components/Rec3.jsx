@@ -53,7 +53,7 @@ export const Rec3 = () => {
             <h2>Today</h2>
             <div className={styles.carrousel}>
                 <div className={styles.eventList}>
-                {data.map((event, index) => (<RecCard key={index} event={event} index={index} />))}
+                {data.map((event, index) => (<RecCard key={index} event={event} index={index} category="events today" list={data} />))}
                 </div>
             </div>
         </div>

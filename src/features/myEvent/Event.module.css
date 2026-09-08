@@ -53,7 +53,8 @@
 .divScroll {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    flex: 1 1 0%;
+    min-width: 0;
 
     height: calc(100vh - 206px);
     max-height: fit-content;
@@ -511,7 +512,7 @@
     flex-direction: row;
     align-items: flex-start;
     justify-content: flex-start;
-    gap: 40px;
+    gap: 20px;
 }
 
 .listEvents {
@@ -520,12 +521,13 @@
     gap: 8px;
     align-items: flex-start;
     justify-content: flex-start;
-    width: 480px;
+    width: 400px;
+    flex-shrink: 0;
     height: calc(100vh - 206px);
     overflow-y: scroll;
     max-height: 931px;
 
-    padding-bottom: 32px;
+    padding: 0 8px 32px;
 }
 
 .sideListCards {

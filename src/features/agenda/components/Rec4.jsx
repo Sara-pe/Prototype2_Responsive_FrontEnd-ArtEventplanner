@@ -91,7 +91,7 @@ console.log('events near you:', eventsNear.data.response.results.event)
                     <h2>Near you</h2>
                     <div className={styles.carrousel}>
                         <div className={styles.eventList}>
-                        {data.map((event, index) => (<RecCard key={index} event={event} index={index} />))}
+                        {data.map((event, index) => (<RecCard key={index} event={event} index={index} category="events near you" list={data} />))}
                         </div>
                     </div>
                 </div>

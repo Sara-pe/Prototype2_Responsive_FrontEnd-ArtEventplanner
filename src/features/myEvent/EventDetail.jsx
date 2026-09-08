@@ -25,7 +25,7 @@ function useIsDesktop(breakpoint = 600) {
     return isDesktop;
 }
 
-function useIsBreakpoint(breakpoint = 800) {
+function useIsBreakpoint(breakpoint = 880) {
     const [isBreakpoint, setIsBreakpoint] = useState(() => window.innerWidth >= breakpoint);
 
     useEffect(() => {

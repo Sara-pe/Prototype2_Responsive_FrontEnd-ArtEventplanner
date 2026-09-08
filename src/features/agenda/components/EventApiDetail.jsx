@@ -2,6 +2,7 @@ import styles from '../Agenda.module.css'
 import axios from 'axios'
 import { useState, useEffect, useRef } from 'react'
 import { RecCard } from './RecCard'
+import { RecCardSmall } from './RecCardSmall'
 import { useParams, useLocation } from 'react-router-dom'
 import { NavLink } from 'react-router-dom'
 import { AgendaAddEvent } from './AgendaAddEvent'
@@ -22,12 +23,16 @@ export const EventApiDetail = () => {
 
     const { id } = useParams();
     const location = useLocation()
+    const { category, list } = location.state || {}
+    const stateEvent = location.state?.event
+    const stateEventMatches = Boolean(stateEvent && String(stateEvent.id) === String(id))
 
     const [error, setError] = useState(false)
-    const [data, setData] = useState(location.state?.event || null)
-    const [loading, setLoading] = useState(!location.state?.event)
+    const [data, setData] = useState(() => stateEventMatches ? stateEvent : null)
+    const [loading, setLoading] = useState(() => !stateEventMatches)
 
     const [expanded, setExpanded] = useState(false)
+    const [prevId, setPrevId] = useState(id)
 
     const textRef = useRef(null)
     const [isOverflowing, setIsOverflowing] = useState(false)
@@ -35,18 +40,34 @@ export const EventApiDetail = () => {
     const [showModal, setShowModal] = useState(false)
     const isDesktop = useIsDesktop();
 
+    if (id !== prevId) {
+        setPrevId(id)
+        setExpanded(false)
+
+        if (stateEventMatches) {
+            setData(stateEvent)
+            setLoading(false)
+            setError(false)
+        } else {
+            setData(null)
+            setLoading(true)
+            setError(false)
+        }
+    }
+
     useEffect(() => {
         window.scrollTo(0, 0)
-    }, [])
+    }, [id])
 
     useEffect(() => {
 
-        if (data) return
+        if (stateEventMatches) return
+
+        let cancelled = false
 
         const fetchDateApi = async () => {
 
             try {
-
 
                 const eventDetailApi = await axios.get(`https://api.brussels:443/api/agenda/0.0.1/events/${id}`, {
                     headers:
@@ -58,20 +79,24 @@ export const EventApiDetail = () => {
                 }
                 )
 
-                setData(eventDetailApi.data.event)
-                console.log(eventDetailApi.data.event)
-                setLoading(false)
+                if (!cancelled) {
+                    setData(eventDetailApi.data.event)
+                    setLoading(false)
+                }
 
-            } catch (err) {
-                setError(true)
-                setLoading(false)
-
+            } catch {
+                if (!cancelled) {
+                    setError(true)
+                    setLoading(false)
+                }
             }
         }
 
         fetchDateApi()
 
-    }, [])
+        return () => { cancelled = true }
+
+    }, [id, stateEventMatches])
 
     useEffect(() => {
         if (textRef.current) {
@@ -117,6 +142,8 @@ export const EventApiDetail = () => {
 
 
                 {/* Event Info */}
+                <div className={styles.containerDesktop}>
+                <div className={styles.divScroll}>
                 <div className={styles.eventInfo}>
                     <div className={styles.eventDetails}>
 
@@ -221,6 +248,21 @@ export const EventApiDetail = () => {
                     {isDesktop ? <button onClick={() => setShowModal(true)} className={styles.btnShare}> Add event </button>
                         : <NavLink to="/add-api" state={{ event: data }} className={styles.btnShare}> Add event </NavLink>}
 
+                </div>
+                </div>
+
+                {isDesktop && category && list && (
+                    <div className={styles.listEvents}>
+                        <h3>Related events</h3>
+                        <div className={styles.sideListCards}>
+                            {list
+                                .filter((e) => String(e.id) !== String(data.id))
+                                .map((e) => (
+                                    <RecCardSmall key={e.id} event={e} category={category} list={list} />
+                                ))}
+                        </div>
+                    </div>
+                )}
                 </div>
             </div>
 
