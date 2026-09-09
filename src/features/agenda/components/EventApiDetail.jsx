@@ -187,7 +187,7 @@ export const EventApiDetail = () => {
                         <div ref={textRef} className={expanded ? styles.textExpanded : styles.textCollapsed}>
 
                             {data.translations?.en?.longdescr?.split('\n').map((sentence, index) => (
-                                <p key={index}>{sentence}</p>
+                                <p key={index}>{sentence.replace(/&nbsp;/gi, ' ')}</p>
                             ))}
                         </div>
 

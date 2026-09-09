@@ -536,7 +536,7 @@ a:hover {
   justify-content: flex-start;
   align-items: flex-start;
   gap: 4px;
-    max-height: 196px; 
+    max-height: 196px;
   overflow-y: hidden;
 }
 
@@ -547,6 +547,11 @@ a:hover {
   align-items: flex-start;
   gap: 4px;
   height: fit-content
+}
+
+.textCollapsed p,
+.textExpanded p {
+  overflow-wrap: break-word;
 }
 
 .btnContainer {
@@ -667,10 +672,16 @@ a:hover {
   }
 
   .divScroll {
+    width: 100%;
     flex: unset;
     min-width: unset;
     height: auto;
     overflow-y: visible;
+  }
+
+  .textCollapsed p,
+  .textExpanded p {
+    width: 100%;
   }
 
   .scheduleContainer {
