@@ -1,7 +1,9 @@
 import eventService from '../../../service/event.service'
 import { useState, useEffect } from 'react'
+import styles from './EventList.module.css'
+import { Spinner } from './Spinner'
 
-export const EventList = ({ onNmbEvents, search, refreshKey, CardComponent, className }) => {
+export const EventList = ({ onNmbEvents, search, refreshKey, CardComponent, className, onReady }) => {
 
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState(null)
@@ -37,8 +39,18 @@ export const EventList = ({ onNmbEvents, search, refreshKey, CardComponent, clas
         }
     }, [data])
 
+    // Lets a parent page wait for the list before showing itself
+    useEffect(() => {
+        if (!isLoading) onReady?.()
+    }, [isLoading])
 
-    if (isLoading) return <p>Loading...</p>
+
+    // Same container as the list, so the spinner is centered where the cards will appear
+    if (isLoading) return (
+        <div className={`${className} ${styles.loadingContainer}`}>
+            <Spinner label="Loading events" />
+        </div>
+    )
     if (error) return <p>Something went wrong</p>
     if (!data) return null
 

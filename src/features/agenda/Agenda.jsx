@@ -3,11 +3,21 @@ import { Rec1 } from './components/Rec1'
 import { Rec2 } from './components/Rec2'
 import { Rec3 } from './components/Rec3'
 import { Rec4 } from './components/Rec4'
-import { useState } from 'react'
+import { Spinner } from '../events/components/Spinner'
+import { useState, useCallback } from 'react'
+
+const SECTIONS = ['rec1', 'rec2', 'rec3', 'rec4']
 
 export const Agenda = () => {
 
     const [date, setDate] = useState(new Date())
+
+    // Names of the sections that finished loading. A Set, so a section reporting twice only counts once
+    const [readySections, setReadySections] = useState(() => new Set())
+    const markReady = useCallback(name => {
+        setReadySections(prev => prev.has(name) ? prev : new Set(prev).add(name))
+    }, [])
+    const allReady = SECTIONS.every(name => readySections.has(name))
 
     return (
         <div className={styles.page}>
@@ -27,11 +37,18 @@ export const Agenda = () => {
                     </div>
                 </div>
 
-                <div className={styles.content}>
-                    <Rec3 />
-                    <Rec1 />
-                    <Rec4 />
-                    <Rec2 />
+                {!allReady && (
+                    <div className={styles.agendaLoading}>
+                        <Spinner label="Loading events" />
+                    </div>
+                )}
+
+                {/* Sections stay mounted while hidden so they can fetch their data */}
+                <div className={styles.content} style={allReady ? undefined : { display: 'none' }}>
+                    <Rec3 onReady={() => markReady('rec3')} />
+                    <Rec1 onReady={() => markReady('rec1')} />
+                    <Rec4 onReady={() => markReady('rec4')} />
+                    <Rec2 onReady={() => markReady('rec2')} />
 
                 </div>
             </div>

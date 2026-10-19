@@ -1,0 +1,6 @@
+/* div. prefix so it wins over the list's own display: grid */
+div.loadingContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

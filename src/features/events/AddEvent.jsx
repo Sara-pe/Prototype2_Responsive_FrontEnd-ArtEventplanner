@@ -1,22 +1,9 @@
-import { useState, useEffect } from 'react'
 import { AddEventForm } from './components/AddEventForm'
 import { NavLink } from 'react-router-dom'
+import { X } from 'lucide-react'
 import styles from './AddEvent.module.css'
 
-function useIsDesktop(breakpoint = 600) {
-  const [isDesktop, setIsDesktop] = useState(() => window.innerWidth >= breakpoint);
-
-  useEffect(() => {
-    const handler = () => setIsDesktop(window.innerWidth >= breakpoint);
-    window.addEventListener("resize", handler);
-    return () => window.removeEventListener("resize", handler);
-  }, [breakpoint]);
-
-  return isDesktop;
-}
-
 export const AddEvent = ({ onClose, onSuccess }) => {
-    const isDesktop = useIsDesktop();
 
     return (
         <div className={styles.page}>
@@ -25,15 +12,16 @@ export const AddEvent = ({ onClose, onSuccess }) => {
                 {/* Header */}
 
                 <div className={styles.header}>
-                    <div className={styles.title}>
+                    {/* onClose is only passed when shown as the desktop pop-up */}
+                    <div className={onClose ? `${styles.title} ${styles.titlePopup}` : styles.title}>
                         <h1>Add Event</h1>
-                        {isDesktop
-                            ? <button onClick={onClose}><img className={styles.closeIcon} src="/icons/close.svg" alt="Close" /></button>
+                        {onClose
+                            ? <button className={styles.closeButtonPopup} onClick={onClose} aria-label="Close"><X size={19} /></button>
                             : <NavLink to="/"><img className={styles.prevArrow} src="/icons/prev.png" alt="Previous" /></NavLink>
                         }
                     </div>
 
-                    <AddEventForm onSuccess={onSuccess} />
+                    <AddEventForm onSuccess={onSuccess} isPopup={Boolean(onClose)} />
 
                 </div>
             </div>

@@ -1,25 +1,12 @@
 import styles from '../Agenda.module.css'
 import { useId } from 'react';
 import { NavLink, useNavigate, useLocation } from 'react-router';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { X } from 'lucide-react';
 
 import eventService from '../../../service/event.service'
 
-function useIsDesktop(breakpoint = 600) {
-    const [isDesktop, setIsDesktop] = useState(() => window.innerWidth >= breakpoint);
-
-    useEffect(() => {
-        const handler = () => setIsDesktop(window.innerWidth >= breakpoint);
-        window.addEventListener("resize", handler);
-        return () => window.removeEventListener("resize", handler);
-    }, [breakpoint]);
-
-    return isDesktop;
-}
-
 export const AgendaAddEvent = ({ onClose, event: eventProp }) => {
-
-    const isDesktop = useIsDesktop();
 
     const id = useId();
     const navigate = useNavigate();
@@ -53,13 +40,13 @@ export const AgendaAddEvent = ({ onClose, event: eventProp }) => {
                 {/* Header */}
 
                 <div className={styles.headerForm}>
-                    <div className={styles.titleForm}>
+                    <div className={onClose ? `${styles.titleForm} ${styles.titleFormPopup}` : styles.titleForm}>
 
 
                         <h4 className={styles.promptEvent}>Pick your date and time for</h4>
                         <h3 className={styles.nameEvent}>{event?.translations?.en?.name}</h3>
-                        {isDesktop
-                            ? <button onClick={onClose}><img className={styles.closeIcon} src="/icons/close.svg" alt="Close" /></button>
+                        {onClose
+                            ? <button className={styles.closeButtonPopup} onClick={onClose} aria-label="Close"><X size={19} /></button>
                             : <NavLink to="/agenda"> <img className={styles.prevArrow} src="/icons/prev.png" alt="Previous" /> </NavLink>}
                     </div>
                 </div>
@@ -146,7 +133,8 @@ export const AgendaAddEvent = ({ onClose, event: eventProp }) => {
                             </div>
                         </div>
 
-                        <button className={styles.btn} type="submit">Add Event</button>
+                        {/* onClose is only passed when shown as the desktop pop-up */}
+                        <button className={onClose ? `${styles.btn} ${styles.btnPopup}` : styles.btn} type="submit">Add Event</button>
                     </div>
 
 

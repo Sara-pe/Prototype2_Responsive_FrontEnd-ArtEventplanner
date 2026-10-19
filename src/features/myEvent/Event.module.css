@@ -41,11 +41,56 @@
     padding-left: 48px;
 }
 
+.loadingCenter {
+    width: 100%;
+    min-height: calc(100vh - 100px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.titleDesk {
+    padding-left: 0;
+}
+
 .prevArrow {
     height: 14px;
     width: auto;
     position: absolute;
     left: 8px;
+}
+
+.backButtonDesk {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    border: 1px solid #EAE9E9;
+    background: #F6F7F7;
+    color: inherit;
+    box-sizing: border-box;
+    transition: background-color 0.15s ease;
+}
+
+.backLinkDesk:hover .backButtonDesk {
+    background: #ECEDED;
+}
+
+.backLinkDesk {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    text-decoration: none;
+    color: inherit;
+}
+
+.backTextDesk {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: #1D1E23;
 }
 
 /* ---------- Event Info ---------- */
@@ -74,7 +119,7 @@
     width: 100%;
     border-radius: 30px;
     background: #F6F7F7;
-    padding: 30px;
+    padding: 32px;
     max-height: fit-content;
 }
 
@@ -386,6 +431,26 @@
     width: auto;
 }
 
+/* Close button of the share pop-up on desktop: same box as the back button */
+.closeButtonPopup {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    border: 1px solid #EAE9E9;
+    background: #F6F7F7;
+    color: #1D1E23;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+
+.closeButtonPopup:hover {
+    background: #ECEDED;
+}
+
 .headerText {
     display: flex;
     flex-direction: column;
@@ -403,10 +468,23 @@
 }
 
 
-.margins {
+/* Share button inside the share pop-up. Its own class, so changes to .btnShare on the page don't affect it */
+.btnModalShare {
+    display: flex;
+    height: 44px;
+    padding: 6px 20px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    background: #000;
+    color: white;
+    font-size: 16px;
     width: calc(100% - 40px);
-    margin-left: 20px;
-    margin-bottom: 20px;
+    margin: 0 20px 20px;
+}
+
+.btnModalShare:hover {
+    opacity: 0.8;
 }
 
 
@@ -560,12 +638,72 @@
     border-radius: 20px;
 }
 
+/* --- desktop sizes --- */
+@media (min-width: 600px) {
+    /* Share pop-up centered in the screen */
+    .modalContainer {
+        justify-content: center;
+    }
+
+    .modal {
+        margin-bottom: 0;
+        border-radius: 20px;
+    }
+
+    .eventDetails {
+        gap: 36px;
+    }
+
+    .btns {
+        flex-direction: row-reverse;
+        justify-content: flex-start;
+    }
+
+    .btnShare,
+    .btnDelete {
+        width: auto;
+        margin-inline: 0;
+        padding: 6px 24px;
+        border-radius: 100px;
+    }
+
+    .deskText .nameAdapted {
+        font-size: 24px;
+    }
+
+    .deskSubtitle p {
+        font-size: 16px;
+    }
+
+    .deskSubtitle .nmbInterested2 {
+        width: 32px;
+        height: 32px;
+        font-size: 14px;
+    }
+
+    .locationContainer {
+        gap: 20px;
+    }
+
+    .locationContainer div p {
+        font-size: 16px;
+    }
+
+    .locationContainer .at {
+        font-size: 20px;
+    }
+}
+
 /* --- mobile --- */
 @media (max-width: 600px) {
     .page {
         position: relative;
         padding: 0 16px;
         position: static;
+        /* Screen minus mobile header (104px) and nav bar (72px), so the nav bar sits at the bottom without extra scroll.
+           Update these numbers if the header or nav bar change height. */
+        min-height: calc(100vh - 176px);
+        min-height: calc(100dvh - 176px);
     }
 
     .container {
@@ -604,7 +742,12 @@
     }
 
     .btns {
-        margin-bottom: 32px;
+        margin-bottom: 40px; /* same gap above the nav bar as /add */
+    }
+
+    .loadingCenter {
+        min-height: calc(100vh - 176px);
+        min-height: calc(100dvh - 176px);
     }
 
     .modal {

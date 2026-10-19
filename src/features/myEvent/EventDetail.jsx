@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import styles from './Event.module.css'
 import { useParams } from "react-router-dom";
 import { NavLink } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
 
 import { ModalShare } from './components/ModalShare'
 import { useNavigate } from 'react-router-dom';
@@ -12,6 +13,7 @@ import { saveAtom } from '../../atoms/token.atom'
 
 import { EventList } from '../events/components/EventList'
 import { EventCardSmall } from '../events/components/EventCardSmall'
+import { Spinner } from '../events/components/Spinner'
 
 function useIsDesktop(breakpoint = 600) {
     const [isDesktop, setIsDesktop] = useState(() => window.innerWidth >= breakpoint);
@@ -23,6 +25,27 @@ function useIsDesktop(breakpoint = 600) {
     }, [breakpoint]);
 
     return isDesktop;
+}
+
+// Image shown for each event type, preloaded so the page appears all at once
+const DESKTOP_IMAGES = {
+    Cinema: '/imgs/imgCinema.jpg',
+    Concert: '/imgs/imgConcert.jpg',
+    Talk: '/imgs/imgTalk.jpg',
+    Dance: '/imgs/imgDance.jpg',
+    Workshop: '/imgs/imgWorkshop.jpg',
+    Expo: '/imgs/imgExpo.jpg',
+    Theatre: '/imgs/imgTheatre.jpg',
+}
+
+const MOBILE_IMAGES = {
+    Cinema: '/imgs/cinema.png',
+    Concert: '/imgs/micro1.png',
+    Talk: '/imgs/micro1.png',
+    Dance: '/imgs/ballet.png',
+    Workshop: '/imgs/workshop.png',
+    Expo: '/imgs/expo.png',
+    Theatre: '/imgs/theatre.png',
 }
 
 function useIsBreakpoint(breakpoint = 880) {
@@ -80,6 +103,31 @@ export const EventDetail = () => {
 
     }, [id])
 
+    // The page appears at once when the event, its image and the "Other events" list are ready.
+    // imageReadyFor holds the event id whose image is loaded, so it resets when opening another event.
+    const [imageReadyFor, setImageReadyFor] = useState(null)
+    const [listReady, setListReady] = useState(false)
+    const imageReady = Boolean(event) && imageReadyFor === event._id
+    const pageReady = imageReady && (!isBreakpoint || listReady)
+
+    useEffect(() => {
+        if (!event) return
+
+        const url = (isDesktop ? DESKTOP_IMAGES : MOBILE_IMAGES)[event.type]
+        if (!url) {
+            setImageReadyFor(event._id)
+            return
+        }
+
+        let cancelled = false
+        const img = new Image()
+        // A broken image shouldn't block the page
+        img.onload = img.onerror = () => { if (!cancelled) setImageReadyFor(event._id) }
+        img.src = url
+
+        return () => { cancelled = true }
+    }, [event, isDesktop])
+
 
     const handleDelete = async (eventId) => {
 
@@ -94,8 +142,8 @@ export const EventDetail = () => {
 
 
     if (isLoading) return <div className={styles.page}>
-        <div className={styles.container}>
-            <p>Loading...</p></div></div>
+        <div className={styles.loadingCenter}>
+            <Spinner label="Loading event" /></div></div>
 
     if (error) return <div className={styles.page}>
         <div className={styles.container}>
@@ -114,15 +162,24 @@ export const EventDetail = () => {
 
     return (
         <div className={styles.page}>
-            <div className={styles.container}>
+            {!pageReady && <div className={styles.loadingCenter}>
+                <Spinner label="Loading event" /></div>}
+
+            {/* Stays mounted while hidden so the "Other events" list can fetch its data */}
+            <div className={styles.container} style={pageReady ? undefined : { display: 'none' }}>
 
                 {/* Header */}
                 <div className={styles.header}>
-                    <div className={styles.title}>
-                        <h1>Your event!</h1>
+                    <div className={isDesktop ? `${styles.title} ${styles.titleDesk}` : styles.title}>
+                        {!isDesktop && <h1>Your event!</h1>}
 
 
-                        <NavLink to='/'> <img className={styles.prevArrow} src="/icons/prev.png" alt="" /></NavLink>
+                        {isDesktop
+                            ? <NavLink to='/' className={styles.backLinkDesk}>
+                                <span className={styles.backButtonDesk}><ArrowLeft size={19} /></span>
+                                <span className={styles.backTextDesk}>Back</span>
+                            </NavLink>
+                            : <NavLink to='/'> <img className={styles.prevArrow} src="/icons/prev.png" alt="" /></NavLink>}
                     </div>
                 </div>
 
@@ -224,10 +281,6 @@ export const EventDetail = () => {
                         </div>
 
                         <div className={styles.location}>
-                            <div className={styles.contAddress}>
-                                <p>📍 {event.address}</p>
-                            </div>
-
                             <iframe
                                 width="100%"
                                 height="216"
@@ -237,7 +290,7 @@ export const EventDetail = () => {
 
                         </div>
                         {showModal &&
-                            <ModalShare key={event._id} event={event} attendees={attendees} onClose={() => setShowModal(false)} />}
+                            <ModalShare key={event._id} event={event} attendees={attendees} onClose={() => setShowModal(false)} isDesktop={isDesktop} />}
 
                         <div className={styles.btns}>
                             <button className={styles.btnShare} onClick={() => { setShowModal(true) }}>Share Event</button>
@@ -255,6 +308,7 @@ export const EventDetail = () => {
                                 onNmbEvents={() => { }}
                                 CardComponent={EventCardSmall}
                                 className={styles.sideListCards}
+                                onReady={() => setListReady(true)}
                             />
                         </div>
                     )}

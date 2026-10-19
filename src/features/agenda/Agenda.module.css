@@ -40,6 +40,21 @@
 }
 
 
+.loadingCenter {
+  width: 100%;
+  min-height: calc(100vh - 100px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.agendaLoading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+}
+
 .content {
   display: flex;
   flex-direction: column;
@@ -147,7 +162,7 @@
   flex-direction: column;
   gap: 24px;
 
-  padding: 20px;
+  padding: 32px;
   z-index: 1000;
   position: fixed;
   top: 50%;
@@ -220,7 +235,7 @@ height: fit-content;
 .btnFields {
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 20px;
   width: 100%;
 }
 
@@ -307,6 +322,59 @@ label {
 
 .btn:hover {
   opacity: 0.85;
+}
+
+/* Add Event button in the desktop pop-up: same look and position as "Share Event" on the event page */
+.btnPopup {
+  align-self: flex-end;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  height: 44px;
+  padding: 6px 24px;
+  border-radius: 100px;
+  background: #000;
+  color: white;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.btnPopup:hover {
+  opacity: 0.8;
+}
+
+/* Title of the desktop pop-up aligned to the left */
+.titleFormPopup {
+  align-items: flex-start;
+  padding-right: 48px; /* keeps long names clear of the close button */
+}
+
+/* Close button of the desktop pop-up: same box as the back button on the event page */
+.closeButtonPopup {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid #EAE9E9;
+  background: #F6F7F7;
+  color: #1D1E23;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.closeButtonPopup:hover {
+  background: #ECEDED;
+}
+
+.titleFormPopup .nameEvent {
+  text-align: left;
+  max-width: none;
 }
 
 .link {
@@ -442,6 +510,72 @@ a:hover {
   left: 8px;
 }
 
+.titleDesk {
+  padding-left: 0;
+  gap: 16px;
+}
+
+.titleRowDesk {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+}
+
+.btnShareDesk {
+  display: flex;
+  flex-shrink: 0;
+  height: 44px;
+  padding: 6px 24px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100px;
+  background: #000;
+  color: white;
+  font-size: 16px;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.btnShareDesk:hover {
+  opacity: 0.8;
+}
+
+.backLinkDesk {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.backButtonDesk {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid #EAE9E9;
+  background: #F6F7F7;
+  color: inherit;
+  box-sizing: border-box;
+  transition: background-color 0.15s ease;
+}
+
+.backLinkDesk:hover .backButtonDesk {
+  background: #ECEDED;
+}
+
+.backTextDesk {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  color: #1D1E23;
+}
+
 .eventDetails {
   display: flex;
   flex-direction: column;
@@ -538,6 +672,11 @@ a:hover {
   gap: 4px;
     max-height: 196px;
   overflow-y: hidden;
+}
+
+.textFade {
+  -webkit-mask-image: linear-gradient(to bottom, #000 60%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 60%, transparent 100%);
 }
 
 .textExpanded {
@@ -698,10 +837,28 @@ a:hover {
     padding-left: 0px;
   }
 
+  /* Event page (/eventsApi/:id): same fit as /add-api, without touching the /agenda page */
+  .pageDetail {
+    min-height: calc(100vh - 176px);
+    min-height: calc(100dvh - 176px);
+  }
+
+  .containerDetail {
+    margin-bottom: 40px;
+  }
+
+  .loadingCenter {
+    min-height: calc(100vh - 176px);
+    min-height: calc(100dvh - 176px);
+  }
+
   .pageForm {
     position: static;
     background-color: #ffffff;
-    min-height: 100vh;
+    /* Screen minus mobile header (104px) and nav bar (72px), so the nav bar sits at the bottom without extra scroll.
+       Update these numbers if the header or nav bar change height. */
+    min-height: calc(100vh - 176px);
+    min-height: calc(100dvh - 176px);
     align-items: flex-start;
     z-index: 1;
 
@@ -723,6 +880,7 @@ a:hover {
     left: 0%;
     transform: translate(0%, 0%);
     padding: 0 16px;
+    margin-bottom: 40px; /* same gap above the nav bar as /add */
 
      max-height: fit-content;
   }
@@ -731,4 +889,40 @@ a:hover {
   width: 100%;
 }
 
+}
+/* --- desktop sizes --- */
+@media (min-width: 601px) {
+  .scheduleContainer {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+}
+
+/* --- desktop font sizes (matches isDesktop breakpoint) --- */
+@media (min-width: 880px) {
+  .titleRowDesk .nameAdapted {
+    font-size: 28px;
+  }
+
+  .locationContainer div p {
+    font-size: 16px;
+  }
+
+  .locationContainer .at {
+    font-size: 20px;
+  }
+
+  .textCollapsed p,
+  .textExpanded p {
+    font-size: 16px;
+  }
+
+  .btnContainer button {
+    font-size: 16px;
+  }
+
+  .scheduleContainer div p,
+  .scheduleContainer .linkVB {
+    font-size: 16px;
+  }
 }

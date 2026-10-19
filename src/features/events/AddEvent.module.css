@@ -23,7 +23,7 @@ height: fit-content;
   flex-direction: column;
   gap: 24px;
   max-width: 600px;
-  padding: 20px;
+  padding: 32px;
   z-index: 1000;
   position: fixed;
   top: 50%;
@@ -161,6 +161,55 @@ label {
   opacity: 0.85;
 }
 
+/* Add Event button in the desktop pop-up: same look and position as "Share Event" on the event page */
+.btnPopup {
+  align-self: flex-end;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  height: 44px;
+  padding: 6px 24px;
+  border-radius: 100px;
+  background: #000;
+  color: white;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.btnPopup:hover {
+  opacity: 0.8;
+}
+
+/* Title of the desktop pop-up aligned to the left */
+.titlePopup {
+  justify-content: flex-start;
+  padding-right: 48px; /* keeps the title clear of the close button */
+}
+
+/* Close button of the desktop pop-up: same box as the back button on the event page */
+.closeButtonPopup {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid #EAE9E9;
+  background: #F6F7F7;
+  color: #1D1E23;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.closeButtonPopup:hover {
+  background: #ECEDED;
+}
+
 .closeIcon {
   height: 14px;
   width: auto;
@@ -170,6 +219,10 @@ label {
 
 @media (max-width: 600px) {
   .page {
+    /* Screen minus mobile header (104px) and nav bar (72px), so the nav bar sits at the bottom without extra scroll.
+       Update these numbers if the header or nav bar change height. */
+    min-height: calc(100vh - 176px);
+    min-height: calc(100dvh - 176px);
     align-items: flex-start;
     background-color: #ffffff;
     padding: 0 16px;
@@ -187,7 +240,7 @@ label {
     transform: none;
     background-color: transparent;
     z-index: 0;
-    margin-bottom: 32px;
+    margin-bottom: 40px; /* same gap above the nav bar as /add-api */
     max-width: 400px;
     box-shadow: none;
     max-height: fit-content;

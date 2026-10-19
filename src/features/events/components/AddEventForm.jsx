@@ -14,7 +14,7 @@ const presetEvent = {
     address: "Boulevard Anspach 110",
 };
 
-export const AddEventForm = ({ onSuccess }) => {
+export const AddEventForm = ({ onSuccess, isPopup }) => {
 
     const id = useId();
     const navigate = useNavigate();
@@ -98,7 +98,7 @@ export const AddEventForm = ({ onSuccess }) => {
                     </div>
                 </div>
 
-                <button className={styles.btn} type="submit">Add Event</button>
+                <button className={isPopup ? `${styles.btn} ${styles.btnPopup}` : styles.btn} type="submit">Add Event</button>
             </div>
 
         </form>

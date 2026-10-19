@@ -10,7 +10,7 @@ const toArray = (events) => {
     return [events]
 }
 
-export const Rec2 = () => {
+export const Rec2 = ({ onReady }) => {
 
     const [data, setData] = useState([])
     const [loading, setLoading] = useState(true)
@@ -65,8 +65,13 @@ export const Rec2 = () => {
 
     }, [])
 
+    // Tell the Agenda page this section is done, so it can show all sections at once
+    useEffect(() => {
+        if (!loading) onReady?.()
+    }, [loading])
+
     if (error) return <p>Something went wrong</p>
-    if (loading) return <p>Loading...</p>
+    if (loading) return null
     if (!data) return null
 
     return (

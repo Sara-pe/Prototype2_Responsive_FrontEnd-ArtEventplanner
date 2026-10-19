@@ -5,7 +5,12 @@ import { RecCard } from './RecCard'
 import { RecCardSmall } from './RecCardSmall'
 import { useParams, useLocation } from 'react-router-dom'
 import { NavLink } from 'react-router-dom'
+import { ArrowLeft } from 'lucide-react'
 import { AgendaAddEvent } from './AgendaAddEvent'
+import { Spinner } from '../../events/components/Spinner'
+
+const PLACEHOLDER_IMG = 'https://dummyimage.com/243x326/ccd6d9/266582.png&text=+'
+const getImageUrl = (event) => (Array.isArray(event.media) ? event.media?.[0]?.link : event.media?.link) || PLACEHOLDER_IMG
 
 function useIsDesktop(breakpoint = 880) {
     const [isDesktop, setIsDesktop] = useState(() => window.innerWidth >= breakpoint);
@@ -98,16 +103,46 @@ export const EventApiDetail = () => {
 
     }, [id, stateEventMatches])
 
+    // Preload the event image and the related events images, so the page appears all at once.
+    // imagesReadyFor holds the id whose images are loaded, so it resets when navigating to another event.
+    const [imagesReadyFor, setImagesReadyFor] = useState(null)
+    const imagesReady = imagesReadyFor === id
+    const showRelated = isDesktop && category && list
+
+    useEffect(() => {
+        if (!data) return
+
+        let cancelled = false
+        const events = showRelated ? [data, ...list.filter((e) => String(e.id) !== String(data.id))] : [data]
+        const urls = events.map(getImageUrl)
+
+        const loadImage = (url) => new Promise((resolve) => {
+            const img = new Image()
+            img.onload = resolve
+            img.onerror = resolve // a broken image shows the placeholder, it shouldn't block the page
+            img.src = url
+        })
+
+        // Don't let one slow image keep the spinner forever
+        const timeout = new Promise((resolve) => setTimeout(resolve, 8000))
+
+        Promise.race([Promise.all(urls.map(loadImage)), timeout]).then(() => {
+            if (!cancelled) setImagesReadyFor(id)
+        })
+
+        return () => { cancelled = true }
+    }, [data, id, showRelated])
+
     useEffect(() => {
         if (textRef.current) {
             setIsOverflowing(textRef.current.scrollHeight > 196)
         }
-    }, [data])
+    }, [data, imagesReady])
 
 
-    if (loading) return <div className={styles.page}>
-        <div className={styles.container}>
-            <p>Loading...</p></div></div>
+    if (loading || (data && !imagesReady)) return <div className={styles.page}>
+        <div className={styles.loadingCenter}>
+            <Spinner label="Loading event" /></div></div>
 
     if (error) return (
         <div>
@@ -126,16 +161,22 @@ export const EventApiDetail = () => {
 
 
     return (
-        <div className={styles.page}>
-            <div className={styles.container}>
+        <div className={`${styles.page} ${styles.pageDetail}`}>
+            <div className={`${styles.container} ${styles.containerDetail}`}>
 
                 {/* Header */}
                 <div className={styles.header}>
-                    <div className={styles.title}>
-                        <h2 className={styles.nameAdapted}>{data.translations?.en?.name}</h2>
+                    <div className={isDesktop ? `${styles.title} ${styles.titleDesk}` : styles.title}>
+                        {isDesktop &&
+                            <NavLink to='/agenda' className={styles.backLinkDesk}>
+                                <span className={styles.backButtonDesk}><ArrowLeft size={19} /></span>
+                                <span className={styles.backTextDesk}>Back</span>
+                            </NavLink>}
+
+                        {!isDesktop && <h2 className={styles.nameAdapted}>{data.translations?.en?.name}</h2>}
 
 
-                        <NavLink to='/agenda'> <img className={styles.prevArrow} src="/icons/prev.png" alt="" /></NavLink>
+                        {!isDesktop && <NavLink to='/agenda'> <img className={styles.prevArrow} src="/icons/prev.png" alt="" /></NavLink>}
                     </div>
                 </div>
 
@@ -147,6 +188,11 @@ export const EventApiDetail = () => {
                 <div className={styles.eventInfo}>
                     <div className={styles.eventDetails}>
 
+                        {isDesktop &&
+                            <div className={styles.titleRowDesk}>
+                                <h2 className={styles.nameAdapted}>{data.translations?.en?.name}</h2>
+                                <button onClick={() => setShowModal(true)} className={styles.btnShareDesk}>Add event</button>
+                            </div>}
 
                         {/* CardIntro*/}
                         <div className={styles.cardIntro}>
@@ -160,7 +206,7 @@ export const EventApiDetail = () => {
 
                     <div className={styles.infoContainer}>
                         <div className={styles.locationContainer}>
-                            <img src="/icons/building.png" alt="" />
+                            {!isDesktop && <img src="/icons/building.png" alt="" />}
                             <div>
                                 <p className={styles.at}>{data.place?.translations?.en?.name}</p>
                                 <p> {data.place?.translations?.en?.address_city}</p>
@@ -184,7 +230,7 @@ export const EventApiDetail = () => {
                     </div>
 
                     {data.translations?.en?.longdescr && <div className={styles.descripContainer}>
-                        <div ref={textRef} className={expanded ? styles.textExpanded : styles.textCollapsed}>
+                        <div ref={textRef} className={expanded ? styles.textExpanded : `${styles.textCollapsed} ${isOverflowing ? styles.textFade : ''}`}>
 
                             {data.translations?.en?.longdescr?.split('\n').map((sentence, index) => (
                                 <p key={index}>{sentence.replace(/&nbsp;/gi, ' ')}</p>
@@ -245,8 +291,7 @@ export const EventApiDetail = () => {
 
                     </div>
 
-                    {isDesktop ? <button onClick={() => setShowModal(true)} className={styles.btnShare}> Add event </button>
-                        : <NavLink to="/add-api" state={{ event: data }} className={styles.btnShare}> Add event </NavLink>}
+                    {!isDesktop && <NavLink to="/add-api" state={{ event: data }} className={styles.btnShare}> Add event </NavLink>}
 
                 </div>
                 </div>

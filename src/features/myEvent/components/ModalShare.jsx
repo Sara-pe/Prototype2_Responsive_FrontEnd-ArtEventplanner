@@ -2,8 +2,9 @@ import styles from '../Event.module.css'
 import userService from '../../../service/user.service'
 import eventService from '../../../service/event.service'
 import { useState, useEffect } from 'react'
+import { X } from 'lucide-react'
 
-export const ModalShare = ({ event, attendees, onClose }) => {
+export const ModalShare = ({ event, attendees, onClose, isDesktop }) => {
 
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(false)
@@ -57,7 +58,9 @@ export const ModalShare = ({ event, attendees, onClose }) => {
                         <h1>Share event</h1>
                         <p>{event.name} @{event.at}</p>
                     </div>
-                    <button onClick={onClose}><img src="/icons/close.svg" alt="Close" /></button>
+                    {isDesktop
+                        ? <button className={styles.closeButtonPopup} onClick={onClose} aria-label="Close"><X size={19} /></button>
+                        : <button onClick={onClose}><img src="/icons/close.svg" alt="Close" /></button>}
                 </div>
 
                 <div className={styles.friendsList}>
@@ -81,7 +84,7 @@ export const ModalShare = ({ event, attendees, onClose }) => {
                         </button>
                     </div>)}
                 </div>
-               <button className={`${styles.btnShare} ${styles.margins}`} onClick={handleSend}>
+               <button className={styles.btnModalShare} onClick={handleSend}>
     Share
 </button>
             </div>  </div>

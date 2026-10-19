@@ -6,7 +6,7 @@ import { RecCard } from './RecCard'
 import { getDefaultStore } from 'jotai'
 import { saveAtom } from '../../../atoms/token.atom'
 
-export const Rec4 = () => {
+export const Rec4 = ({ onReady }) => {
 
     const token = getDefaultStore().get(saveAtom)
 
@@ -83,6 +83,12 @@ console.log('events near you:', eventsNear.data.response.results.event)
 
 
     }, [])
+
+    // Tell the Agenda page this section is done, so it can show all sections at once.
+    // Without coordinates nothing is fetched, so it is ready straight away.
+    useEffect(() => {
+        if (!loading || !coords) onReady?.()
+    }, [loading])
 
     if (!userNeighborhood) return null
 

@@ -3,7 +3,7 @@ import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { RecCard } from './RecCard'
 
-export const Rec3 = () => {
+export const Rec3 = ({ onReady }) => {
 
     const [data, setData] = useState([])
     const [error, setError] = useState(false)
@@ -43,8 +43,13 @@ export const Rec3 = () => {
     }, [])
 
 
+    // Tell the Agenda page this section is done, so it can show all sections at once
+    useEffect(() => {
+        if (!loading) onReady?.()
+    }, [loading])
+
     if (error) return <p>Something went wrong</p>
-    if (loading) return <p>Loading...</p>
+    if (loading) return null
     if (!data) return null
 
     return (
