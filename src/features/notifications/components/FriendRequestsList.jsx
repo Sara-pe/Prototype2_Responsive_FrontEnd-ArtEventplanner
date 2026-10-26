@@ -1,6 +1,7 @@
 import styles from '../Notifications.module.css'
 import userService from '../../../service/user.service'
 import { RequestCard } from './RequestCard'
+import { Spinner } from '../../events/components/Spinner'
 import { useState, useEffect } from 'react'
 
 export const FriendRequestsList = ({ onNmbRequests }) => {
@@ -38,7 +39,11 @@ export const FriendRequestsList = ({ onNmbRequests }) => {
         }
     }, [data])
 
-    if (loading) return <p>Loading...</p>
+    if (loading) return (
+        <div className={styles.loading}>
+            <Spinner label="Loading friend requests" />
+        </div>
+    )
     if (error) return <p>Something went wrong</p>
 
     const friendRequests = data.friendRequests.filter((request) => (request.status === 'pending'));

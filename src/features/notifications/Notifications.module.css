@@ -104,6 +104,13 @@
 
 /* ---------- EventList ---------- */
 
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 160px;
+}
 
 .listCards {
   display: flex;
@@ -263,11 +270,18 @@
 
 @media (max-width: 600px) {
 
+  .loading {
+    min-height: 60vh;
+  }
+
   .page {
     z-index: 1;
     position: static;
     background-color: #ffffff;
-    min-height: 100vh;
+    /* Screen minus mobile header (104px) and nav bar (72px), so the nav bar sits at the bottom without extra scroll.
+       Update these numbers if the header or nav bar change height. */
+    min-height: calc(100vh - 176px);
+    min-height: calc(100dvh - 176px);
     display: flex;
     align-items: flex-start;
     padding: 0 16px;

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import userService from '../../../service/user.service'
 import { FriendCard } from './FriendCard'
 import styles from '../Friends.module.css'
+import { Spinner } from '../../events/components/Spinner'
 
 
 
@@ -33,7 +34,11 @@ export const FriendList = ({ onNmbFriends, search }) => {
     const friendsAndSearch = friends.filter(friend => `${friend.name} ${friend.lastname}`.toLowerCase().includes(search.toLowerCase()))
 
     if (error) return <p>Something went wrong</p>
-if (loading) return <p>Loading...</p>
+    if (loading) return (
+        <div className={styles.loading}>
+            <Spinner label="Loading friends" />
+        </div>
+    )
 
     return (
         <div className={styles.listCards}>

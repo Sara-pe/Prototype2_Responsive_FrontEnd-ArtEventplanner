@@ -2,7 +2,7 @@
 
 .page {
   background-color: #ffffff;
-  min-height: 100vh;
+  min-height: calc(100vh - 100px);
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -57,6 +57,14 @@ img {
 }
 
 /* ---------- FriendList ---------- */
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 60vh;
+}
 
 .listCards {
   display: grid;
@@ -158,6 +166,10 @@ img {
   .page {
     padding: 0 16px;
     position: static;
+    /* Screen minus mobile header (104px) and nav bar (72px), so the nav bar sits at the bottom without extra scroll.
+       Update these numbers if the header or nav bar change height. */
+    min-height: calc(100vh - 176px);
+    min-height: calc(100dvh - 176px);
   }
 
   .container {

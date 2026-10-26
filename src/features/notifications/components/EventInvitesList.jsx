@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import styles from '../Notifications.module.css'
 import eventService from '../../../service/event.service'
 import { InviteCard } from './InviteCard'
+import { Spinner } from '../../events/components/Spinner'
 
 export const EventInvitesList = ({ onNmbInvites }) => {
 
@@ -43,7 +44,11 @@ export const EventInvitesList = ({ onNmbInvites }) => {
     }, [data])
 
     if (error) return (<p>Something went wrong</p>)
-    if (loading) return <p>Loading...</p>
+    if (loading) return (
+        <div className={styles.loading}>
+            <Spinner label="Loading event invites" />
+        </div>
+    )
 
     console.log('Event invites:', data)
     const invitationsReceived = data?.invitationsReceived.filter((invitation) => (invitation.status === 'pending'))
