@@ -4,7 +4,8 @@ import { FriendList } from './components/FriendList'
 import { useState, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 
-function useIsDesktop(breakpoint = 768) {
+// Same breakpoint as Home, so both pages switch to the compact icon buttons at the same width
+function useIsDesktop(breakpoint = 880) {
     const [isDesktop, setIsDesktop] = useState(() => window.innerWidth >= breakpoint);
 
     useEffect(() => {

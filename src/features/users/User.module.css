@@ -51,6 +51,14 @@ width: 320px;
 
 /*------------------- UserList ------------------------*/
 
+.loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 60vh;
+}
+
 .listCards {
  display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));

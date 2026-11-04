@@ -2,6 +2,7 @@ import styles from '../User.module.css'
 import { useState, useEffect } from 'react'
 import userService from '../../../service/user.service'
 import { UserCard } from './UserCard'
+import { Spinner } from '../../events/components/Spinner'
 
 
 export const UsersList = ({ search }) => {
@@ -19,11 +20,12 @@ export const UsersList = ({ search }) => {
             try {
 
                 const dataUsers = await userService.getAll()
-                setLoading(false)
                 setUsers(dataUsers.users)
                 const user = await userService.getById()
                 setFriends(user.friends)
                 setMyId(user._id)
+                // Only stop loading once friends are known, so they don't flash in the list
+                setLoading(false)
 
 
             } catch (err) {
@@ -50,7 +52,11 @@ export const UsersList = ({ search }) => {
 
 
     if (error) return (<p>somthing went wrong</p>)
-    if (loading) return <p>Loading...</p>
+    if (loading) return (
+        <div className={styles.loading}>
+            <Spinner label="Loading users" />
+        </div>
+    )
 
     return (
 
