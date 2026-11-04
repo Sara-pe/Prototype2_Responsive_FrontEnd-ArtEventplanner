@@ -353,7 +353,8 @@ border: 0.8px solid #e3e3e3;*/
 }
 
 .btn-3:hover {
-  /*! TO DO */
+  opacity: 0.85;
+  color: #FFF;
 }
 
 .btn-arrow {

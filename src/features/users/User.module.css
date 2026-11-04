@@ -124,6 +124,18 @@ gap: 12px;
 }
 
 
+/* --- tablet & mobile (same 880px breakpoint as Home and Friends) --- */
+@media (max-width: 879px) {
+  .searchContainer {
+    width: 100%;
+  }
+
+  .searchContainer input {
+    width: 100%;
+    border-radius: 8px;
+  }
+}
+
 /* --- mobile --- */
 @media (max-width: 600px) {
   .page {
